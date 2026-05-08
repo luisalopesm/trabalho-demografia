@@ -1,0 +1,274 @@
+# ============================================
+# b) MORTALIDADE INFANTIL E PERINATAL
+# Paraná
+# ============================================
+
+library(tidyverse)
+library(microdatasus)
+library(lubridate)
+
+# ============================================
+# ÓBITOS FETAIS
+# ============================================
+
+lista_fetal <- lapply(c(2022, 2023, 2024), function(a){
+  
+  fetch_datasus(
+    year_start = a,
+    year_end = a,
+    uf = "PR",
+    information_system = "SIM-DOFET"
+  )
+  
+})
+
+sim_fetal <- bind_rows(lista_fetal)
+
+sim_fetal <- process_sim(sim_fetal)
+
+sim_fetal <- sim_fetal %>%
+  
+  filter(
+    munResUf == "Paraná"
+  )
+
+# média anual
+media_obitos_fetais <- sim_fetal %>%
+  
+  mutate(
+    ano = year(ymd(DTOBITO))
+  ) %>%
+  
+  group_by(ano) %>%
+  
+  summarise(
+    obitos_fetais = n(),
+    .groups = "drop"
+  ) %>%
+  
+  summarise(
+    media = mean(obitos_fetais)
+  ) %>%
+  
+  pull(media)
+
+
+# ============================================
+# 1. BAIXAR ÓBITOS SIM
+# ============================================
+
+anos <- c(2022, 2023, 2024)
+
+lista_sim <- lapply(anos, function(a){
+  
+  fetch_datasus(
+    year_start = a,
+    year_end = a,
+    uf = "PR",
+    information_system = "SIM-DO"
+  )
+  
+})
+
+sim_pr <- bind_rows(lista_sim)
+
+sim_pr <- process_sim(sim_pr)
+
+# ============================================
+# 2. PREPARAR VARIÁVEIS
+# ============================================
+
+sim_pr <- sim_pr %>%
+  
+  mutate(
+    
+    DTOBITO = ymd(DTOBITO),
+    ano = year(DTOBITO),
+    
+    idade_num = as.numeric(substr(IDADE, 2, 4)),
+    tipo_idade = substr(IDADE, 1, 1),
+    
+    # idade em dias
+    idade_dias = case_when(
+      
+      # horas
+      tipo_idade == "1" ~ 0,
+      
+      # dias
+      tipo_idade == "2" ~ idade_num,
+      
+      # meses
+      tipo_idade == "3" ~ idade_num * 30,
+      
+      # anos
+      tipo_idade == "4" ~ idade_num * 365,
+      
+      TRUE ~ NA_real_
+    )
+    
+  )
+
+# ============================================
+# 3. CLASSIFICAÇÃO DOS ÓBITOS INFANTIS
+# ============================================
+
+obitos_infantis <- sim_pr %>%
+  
+  filter(
+    idade_dias < 365
+  ) %>%
+  
+  mutate(
+    
+    componente = case_when(
+      
+      idade_dias <= 6 ~ "Neonatal precoce",
+      
+      idade_dias >= 7 & idade_dias <= 27 ~ "Neonatal tardia",
+      
+      idade_dias >= 28 & idade_dias < 365 ~ "Posneonatal",
+      
+      TRUE ~ NA_character_
+    )
+    
+  )
+
+# ============================================
+# 4. NÚMERO MÉDIO DE ÓBITOS (2022-2024)
+# ============================================
+
+obitos_resumo <- obitos_infantis %>%
+  
+  group_by(ano, componente) %>%
+  
+  summarise(
+    obitos = n(),
+    .groups = "drop"
+  )
+
+media_obitos <- obitos_resumo %>%
+  
+  group_by(componente) %>%
+  
+  summarise(
+    media_obitos = mean(obitos),
+    .groups = "drop"
+  )
+
+# Extrair valores
+obitos_neonatal_precoce <- media_obitos %>%
+  filter(componente == "Neonatal precoce") %>%
+  pull(media_obitos)
+
+obitos_neonatal_tardia <- media_obitos %>%
+  filter(componente == "Neonatal tardia") %>%
+  pull(media_obitos)
+
+obitos_posneonatal <- media_obitos %>%
+  filter(componente == "Posneonatal") %>%
+  pull(media_obitos)
+
+obitos_neonatal <-
+  obitos_neonatal_precoce +
+  obitos_neonatal_tardia
+
+obitos_infantis_total <-
+  obitos_neonatal +
+  obitos_posneonatal
+
+# ============================================
+# 5. NASCIDOS VIVOS - SINASC 2023
+# ============================================
+
+sinasc_2023 <- fetch_datasus(
+  year_start = 2023,
+  year_end = 2023,
+  uf = "PR",
+  information_system = "SINASC"
+)
+
+sinasc_2023 <- process_sinasc(sinasc_2023)
+
+nascidos_vivos <- nrow(sinasc_2023)
+
+# ============================================
+# 6. TAXAS DE MORTALIDADE
+# ============================================
+
+tmi <- (
+  obitos_infantis_total /
+    nascidos_vivos
+) * 1000
+
+tm_neonatal <- (
+  obitos_neonatal /
+    nascidos_vivos
+) * 1000
+
+tm_neonatal_precoce <- (
+  obitos_neonatal_precoce /
+    nascidos_vivos
+) * 1000
+
+tm_neonatal_tardia <- (
+  obitos_neonatal_tardia /
+    nascidos_vivos
+) * 1000
+
+tm_posneonatal <- (
+  obitos_posneonatal /
+    nascidos_vivos
+) * 1000
+
+# ============================================
+# 7. ÓBITOS FETAIS
+# ============================================
+
+obitos_fetais_ano <- sim_pr %>%
+  
+  filter(OBITOGRAV == "Sim") %>%
+  
+  group_by(ano) %>%
+  
+  summarise(
+    obitos_fetais = n(),
+    .groups = "drop"
+  )
+
+media_obitos_fetais <-
+  mean(obitos_fetais_ano$obitos_fetais)
+
+# ============================================
+# 8. TAXA DE MORTALIDADE PERINATAL
+# ============================================
+# Óbitos fetais 2023
+
+
+obitos_fetais_2023 <- sim_fetal %>%
+  
+  mutate(ano = year(ymd(DTOBITO))) %>%
+  
+  filter(ano == 2023) %>%
+  
+  summarise(n = n()) %>%
+  
+  pull(n)
+
+# Óbitos neonatais precoces 2023
+obitos_neonatal_precoce_2023 <- obitos_infantis %>%
+  
+  filter(
+    ano == 2023,
+    componente == "Neonatal precoce"
+  ) %>%
+  
+  summarise(n = n()) %>%
+  
+  pull(n)
+
+# TMP correta
+tx_mort_perinatal <- (
+  (obitos_fetais_2023 + obitos_neonatal_precoce_2023)
+  /
+    (nascidos_vivos + obitos_fetais_2023)
+) * 1000
