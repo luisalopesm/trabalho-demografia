@@ -141,28 +141,62 @@ $l_0$: raiz da Tábua de vida, representa o número de nascimentos
 knitr::include_graphics("quest2/TLR.png")
 ```
 
-
 b\) Obtenha todos os indicadores de 2022, considerando a população recenseada nesse ano.
+
+**Resposta:**
 
 $TBN$:
 
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("quest2/TBN2022.png")
+```
+
 $TFG$:
 
-$nfx$:
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("quest2/TFG2022.png")
+```
+
+$nfx$ e $TEF$:
+
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("quest2/TEF_nfx2022.png")
+```
+
+Gráficos de $TFG$ e $nfx$:
+
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("quest2/TFG_grafico2022.png")
+knitr::include_graphics("quest2/nfx_grafico2022.png")
+```
 
 $TFT$:
 
+```{r, echo=FALSE, out.width="35%", fig.align='center'}
+knitr::include_graphics("quest2/TFT2022.png")
+```
+
 $f^f_x$:
+
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("quest2/ffx2022.png")
+```
 
 $TBR$:
 
+```{r, echo=FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("quest2/TBR2022.png")
+```
+
 $TLR$:
 
-**Resposta:**
+```{r, echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("quest2/TLR2022.png")
+```
 
 c\) Comente esses resultados (inclusive os gráficos das nfx), fazendo referência a artigos já publicados sobre o assunto.
 
-**Resposta:**
+**Resposta:** As taxas específicas de fecundidade (nfx) aumentam gradualmente até o grupo de 20 a 29 anos e depois caem bruscamente a partir do ponto máximo de cada curva. Esse padrão se mantém em todos os anos analisados (2010, 2019, 2021, 2022 e 2024 - no caso da questão 2a), indicando que a fecundidade está concentrada nas idades adultas mais jovens, com poucos nascimentos no início e no final da vida reprodutiva. As demais taxas apresentam a mesma queda que a nfx. As taxas líquidas de reprodução, tanto na 2a quanto na 2b, estão abaixo de 1, ou seja, abaixo do nível de reposição, o que indica que ao longo do tempo, a população decresce.
 
 d\) Para os dados do SINASC para 2024, analise a associação entre (apresente ao menos uma medida de associação):
 
