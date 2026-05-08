@@ -2,7 +2,7 @@
 title: "Trabalho 1 - Demografia"
 format: pdf
 editor: visual
-author: "Camila Mesquita, Laíse Ribeiro, Luísa Lopes, Nícolas Baldez"
+author: "Camila Mesquita, Laíse Ribeiro, Luísa Lopes, Nícolas Baldez  - Curitiba (PR)"
 ---
 
 ```{r setup}
@@ -50,7 +50,113 @@ a\) Com base nos dados do SINASC, para cada um dos anos seguintes: 2010, 2019, 2
 
 **Resposta:**
 
+$TBN = \frac{N}{P} \times 1000$
+
+$TBN$: Taxa Bruta de Natalidade
+
+$N$: Número total de nascidos vivos ocorridos no período
+
+$P$: População média do período
+
+```{r, echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("quest2/TBN.png")
+```
+
+$TFG = \frac{N}{P_f} \times 1000$
+
+$TFG$: Taxa de Fecundidade Geral
+
+$N$: Número total de nascidos vivos ocorridos no período
+
+$P_f$: População feminina média entre 15 e 49 anos
+
+```{r, echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("quest2/TFG.png")
+```
+
+$nfx = \frac{Nx}{P_fx}$ e $TEF = \frac{Nx}{Pfx} \times 1000$
+
+$nfx$: Nascidos vivos por grupo etário da mãe
+
+$TEF$: Taxas Específicas de Fecundidade
+
+$Nx$: Nascidos vivos de mãe entre as idades x e x+n
+
+$P_fx$: População média feminina entre as idades x e x+n
+
+```{r, echo=FALSE, out.width="110%", fig.align='center'}
+knitr::include_graphics("quest2/TEF_nfx.png")
+```
+
+Gráficos de $TFG$ e $nfx$:
+
+```{r, echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("quest2/TFG_grafico.png")
+knitr::include_graphics("quest2/nfx_grafico.png")
+```
+
+$TFT = 5\sum_{i=1}^{7} f_i$
+
+$TFT$: Taxa de Fecundidade Total
+
+$f_i$: grupos quinquenais de $nfx$
+
+```{r, echo=FALSE, out.width="110%", fig.align='center'}
+knitr::include_graphics("quest2/TFT.png")
+```
+
+$f^f_x = \frac{N_f}{P_fx} \times 1000$
+
+$f^f_x$: Taxas Específicas de Fecundidade feminina
+
+$N_f$: Nascidos vivos femininos de mães entre as idades x e x+n
+
+$P_fx$: População média feminina entre as idades x e x+n
+
+```{r, echo=FALSE, out.width="110%", fig.align='center'}
+knitr::include_graphics("quest2/TEF_f.png")
+```
+
+$TBR = 5\sum_{i=1}^{7} f^f_i$
+
+$TBR$: Taxa Bruta de Reprodução
+
+$f^f_i$: grupos quinquenais de $f^f_x$
+
+```{r, echo=FALSE, out.width="110%", fig.align='center'}
+knitr::include_graphics("quest2/TBR.png")
+```
+
+$TLR = \sum_{i=1}^{7} f^f_i \times\frac{L^f_i}{l_0}$
+
+$TLR$: Taxa Líquida de Reprodução
+
+$f^f_i$: grupos quinquenais de $f^f_x$
+
+$L^f_i$: Função da Tábua de vida
+
+$l_0$: raiz da Tábua de vida, representa o número de nascimentos
+
+```{r, echo=FALSE, out.width="110%", fig.align='center'}
+knitr::include_graphics("quest2/TLR.png")
+```
+
+
 b\) Obtenha todos os indicadores de 2022, considerando a população recenseada nesse ano.
+
+$TBN$:
+
+$TFG$:
+
+$nfx$:
+
+$TFT$:
+
+$f^f_x$:
+
+$TBR$:
+
+$TLR$:
 
 **Resposta:**
 
