@@ -182,7 +182,7 @@ Lx <- c(Lx, kx$k[18] * dx$d[18])
 soma <- Lx[18]
 
 Tx <- Lx[18]
-
+ 
 for (i in 1:17) {
   soma <- soma + Lx[18 - i]
   Tx <- c(Tx, soma)
