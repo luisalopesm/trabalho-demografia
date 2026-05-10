@@ -208,6 +208,28 @@ Apresente graficamente os dados, obtenha medidas para essa associação e coment
 
 **Resposta:**
 
+Tabela e Gráfico de Contingência Escolaridade por Idade da mãe
+```{r, echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("quest2/TCTF1.png")
+knitr::include_graphics("quest2/grafico1.png")
+```
+ 
+V de Cramer Interpretação < 0,10 Associação muito fraca 0,10 - 0,30 Associação fraca 0,30 - 0,50 Associação moderada 0,50 Associação forte Resumo para sua resposta: Análise Medida Valor Interpretação Idade vs. Escolaridade V de Cramer = 0,155 Entre 0,10-0,30 Associação fraca Parto vs. Escolaridade RP = 1,67 1 Escolaridade alta é fator de risco para cesárea (67% mais chance) Parto vs. Escolaridade RP = 0,60 < 1
+Escolaridade alta é fator de proteção contra cesárea (40% menos chance) 
+
+Análise (v de cramer = 0.1932063)
+
+
+Tabela e Gráfico da Escolaridade pelo Tipo de parto da mãe
+```{r, echo=FALSE, out.width="70%", fig.align='center'}
+knitr::include_graphics("quest2/TCTF2.png")
+knitr::include_graphics("quest2/grafico2.png")
+```
+
+
+Análise (v de cramer = 0.1337143/ associação fraca (0.10-0.15))
+
+
 ### **Questão 3: Mortalidade**
 
 a\) Com base nos dados sobre óbitos do SIM para os anos: 2010, 2019, 2021, 2022 e 2024 e a população por sexo e idade estimada (projetada) para a UF ou território escolhido, obtenha os seguintes indicadores:
