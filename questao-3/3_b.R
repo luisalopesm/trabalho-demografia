@@ -191,6 +191,70 @@ sinasc_2023 <- process_sinasc(sinasc_2023)
 
 nascidos_vivos <- nrow(sinasc_2023)
 
+
+# ============================================
+# TMI POR SEXO
+# ============================================
+
+# ----------------------------
+# ÓBITOS INFANTIS POR SEXO
+# ----------------------------
+
+obitos_sexo <- obitos_infantis %>%
+  
+  filter(!is.na(SEXO)) %>%
+  
+  group_by(ano, SEXO) %>%
+  
+  summarise(
+    obitos_infantis = n(),
+    .groups = "drop"
+  )
+
+# média de óbitos 2022-2024
+media_obitos_sexo <- obitos_sexo %>%
+  
+  group_by(SEXO) %>%
+  
+  summarise(
+    media_obitos = mean(obitos_infantis),
+    .groups = "drop"
+  )
+
+# ----------------------------
+# NASCIDOS VIVOS POR SEXO
+# ----------------------------
+
+nascidos_sexo <- sinasc_2023 %>%
+  
+  filter(!is.na(SEXO)) %>%
+  
+  group_by(SEXO) %>%
+  
+  summarise(
+    nascidos_vivos = n(),
+    .groups = "drop"
+  )
+
+# ----------------------------
+# CÁLCULO DA TMI
+# ----------------------------
+
+tmi_sexo <- media_obitos_sexo %>%
+  
+  left_join(
+    nascidos_sexo,
+    by = "SEXO"
+  ) %>%
+  
+  mutate(
+    TMI = round(
+      (media_obitos / nascidos_vivos) * 1000,
+      2
+    )
+  )
+
+
 # ============================================
 # 6. TAXAS DE MORTALIDADE
 # ============================================

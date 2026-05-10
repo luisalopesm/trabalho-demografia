@@ -77,18 +77,43 @@ sim_pr <- sim_pr %>%
     
     # Faixas etárias
     faixa_etaria = case_when(
+      
       idade_anos < 1 ~ "<1",
+      
       idade_anos >= 1  & idade_anos <= 4  ~ "1-4",
+      
       idade_anos >= 5  & idade_anos <= 9  ~ "5-9",
+      
       idade_anos >= 10 & idade_anos <= 14 ~ "10-14",
+      
       idade_anos >= 15 & idade_anos <= 19 ~ "15-19",
-      idade_anos >= 20 & idade_anos <= 29 ~ "20-29",
-      idade_anos >= 30 & idade_anos <= 39 ~ "30-39",
-      idade_anos >= 40 & idade_anos <= 49 ~ "40-49",
-      idade_anos >= 50 & idade_anos <= 59 ~ "50-59",
-      idade_anos >= 60 & idade_anos <= 69 ~ "60-69",
-      idade_anos >= 70 & idade_anos <= 79 ~ "70-79",
+      
+      idade_anos >= 20 & idade_anos <= 24 ~ "20-24",
+      
+      idade_anos >= 25 & idade_anos <= 29 ~ "25-29",
+      
+      idade_anos >= 30 & idade_anos <= 34 ~ "30-34",
+      
+      idade_anos >= 35 & idade_anos <= 39 ~ "35-39",
+      
+      idade_anos >= 40 & idade_anos <= 44 ~ "40-44",
+      
+      idade_anos >= 45 & idade_anos <= 49 ~ "45-49",
+      
+      idade_anos >= 50 & idade_anos <= 54 ~ "50-54",
+      
+      idade_anos >= 55 & idade_anos <= 59 ~ "55-59",
+      
+      idade_anos >= 60 & idade_anos <= 64 ~ "60-64",
+      
+      idade_anos >= 65 & idade_anos <= 69 ~ "65-69",
+      
+      idade_anos >= 70 & idade_anos <= 74 ~ "70-74",
+      
+      idade_anos >= 75 & idade_anos <= 79 ~ "75-79",
+      
       idade_anos >= 80 ~ "80+",
+      
       TRUE ~ NA_character_
     )
     
@@ -207,22 +232,47 @@ pop_pr_tidy <- pop_pr_tidy %>%
   mutate(
     
     idade = as.numeric(faixa_etaria),
-    
-    faixa_etaria = case_when(
-      idade < 1 ~ "<1",
-      idade >= 1  & idade <= 4  ~ "1-4",
-      idade >= 5  & idade <= 9  ~ "5-9",
-      idade >= 10 & idade <= 14 ~ "10-14",
-      idade >= 15 & idade <= 19 ~ "15-19",
-      idade >= 20 & idade <= 29 ~ "20-29",
-      idade >= 30 & idade <= 39 ~ "30-39",
-      idade >= 40 & idade <= 49 ~ "40-49",
-      idade >= 50 & idade <= 59 ~ "50-59",
-      idade >= 60 & idade <= 69 ~ "60-69",
-      idade >= 70 & idade <= 79 ~ "70-79",
-      idade >= 80 ~ "80+",
-      TRUE ~ NA_character_
-    )
+      
+      faixa_etaria = case_when(
+        
+        idade < 1 ~ "<1",
+        
+        idade >= 1  & idade <= 4  ~ "1-4",
+        
+        idade >= 5  & idade <= 9  ~ "5-9",
+        
+        idade >= 10 & idade <= 14 ~ "10-14",
+        
+        idade >= 15 & idade <= 19 ~ "15-19",
+        
+        idade >= 20 & idade <= 24 ~ "20-24",
+        
+        idade >= 25 & idade <= 29 ~ "25-29",
+        
+        idade >= 30 & idade <= 34 ~ "30-34",
+        
+        idade >= 35 & idade <= 39 ~ "35-39",
+        
+        idade >= 40 & idade <= 44 ~ "40-44",
+        
+        idade >= 45 & idade <= 49 ~ "45-49",
+        
+        idade >= 50 & idade <= 54 ~ "50-54",
+        
+        idade >= 55 & idade <= 59 ~ "55-59",
+        
+        idade >= 60 & idade <= 64 ~ "60-64",
+        
+        idade >= 65 & idade <= 69 ~ "65-69",
+        
+        idade >= 70 & idade <= 74 ~ "70-74",
+        
+        idade >= 75 & idade <= 79 ~ "75-79",
+        
+        idade >= 80 ~ "80+",
+        
+        TRUE ~ NA_character_
+      )
     
   ) %>%
   
@@ -272,12 +322,18 @@ nmx <- nmx %>%
         "5-9",
         "10-14",
         "15-19",
-        "20-29",
-        "30-39",
-        "40-49",
-        "50-59",
-        "60-69",
-        "70-79",
+        "20-24",
+        "25-29",
+        "30-34",
+        "35-39",
+        "40-44",
+        "45-49",
+        "50-54",
+        "55-59",
+        "60-64",
+        "65-69",
+        "70-74",
+        "75-79",
         "80+"
       )
     )
