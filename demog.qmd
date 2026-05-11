@@ -240,15 +240,138 @@ a\) Com base nos dados sobre óbitos do SIM para os anos: 2010, 2019, 2021, 2022
 **Resposta:**
 
 $Taxa\ Bruta\ de\ Mortalidade$:
-```{r, echo=FALSE}
 
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tbm.png")
 ```
+
 
 $Taxas\ Específicas\ de\ Mortalidade\ por\ sexo\ e\ idade$
-```{r, echo=FALSE}
 
+- 2010
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2010.png")
 ```
 
+:::
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2010.png")
+```
+
+:::
+
+:::
+
+- 2019
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2019.png")
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2019.png")
+```
+
+:::
+
+:::
+
+
+- 2021
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2021.png")
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2021.png")
+```
+
+:::
+
+:::
+
+
+- 2022
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2022.png")
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2022.png")
+```
+
+:::
+
+:::
+
+
+- 2024
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2024.png")
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2024.png")
+```
+
+:::
+
+:::
+
+
+- Comparação anual
+
+```{r, echo=FALSE, out.width="70%", fig.align="center"}
+knitr::include_graphics("questao-3/nmx_homens.png")
+```
+
+
+```{r, echo=FALSE, out.width="70%", fig.align="center"}
+knitr::include_graphics("questao-3/nmx_mulheres.png")
+```
 
 
 b\) Calcule a TMI, utilizando o **número médio de óbitos ocorridos entre 2022 e 2024 (numerador) e o número de nascimentos de 2023 (denominador**). Calcule os indicadores: taxa de mortalidade neonatal, neonatal precoce, neonatal tardia, posneonatal. A partir da informação sobre óbitos fetais dos mesmos anos, calcule a taxa de mortalidade perinatal.

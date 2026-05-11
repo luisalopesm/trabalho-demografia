@@ -312,12 +312,16 @@ nmx <- obitos_especificos %>%
 
 nmx <- nmx %>%
   
+  filter(
+    !is.na(faixa_etaria),
+    faixa_etaria != "<1"
+  ) %>%
+  
   mutate(
     
     faixa_etaria = factor(
       faixa_etaria,
       levels = c(
-        "<1",
         "1-4",
         "5-9",
         "10-14",
@@ -339,7 +343,6 @@ nmx <- nmx %>%
     )
     
   )
-
 
 
 # GRÁFICO - HOMENS
@@ -364,9 +367,7 @@ nmx_homens <- ggplot(
   ) +
   
   labs(
-    title = "Homens",
-    x = "Faixa Etária",
-    y = "nMx",
+    title = "Taxas Específicas de Mortalidade (nMx) - Homens",
     color = "Ano"
   ) +
   
@@ -383,6 +384,14 @@ nmx_homens <- ggplot(
       hjust = 0.5
     )
   )
+
+ggsave(
+  "nmx_homens.png",
+  nmx_homens,
+  width = 7,
+  height = 3.5,
+  dpi = 200
+)
 
 
 # GRÁFICO - MULHERES
@@ -407,9 +416,7 @@ nmx_mulheres <- ggplot(
   ) +
   
   labs(
-    title = "Mulheres",
-    x = "Faixa Etária",
-    y = "nMx",
+    title = "Taxas Específicas de Mortalidade (nMx) - Mulheres",
     color = "Ano"
   ) +
   
@@ -427,110 +434,366 @@ nmx_mulheres <- ggplot(
     )
   )
 
+ggsave(
+  "nmx_mulheres.png",
+  nmx_mulheres,
+  width = 7,
+  height = 3.5,
+  dpi = 200
+)
+
 
 # ============================================
-# 9. TABELA TBM
+# REMOVER NAs DO SEXO E FAIXA ETÁRIA
 # ============================================
 
-library(gt)
+nmx_plot <- nmx %>%
+  
+  filter(
+    !is.na(SEXO),
+    !is.na(faixa_etaria)
+  ) %>%
+  
+  droplevels()
 
-# ORGANIZAR TABELA
 
-tbm_tabela <- tbm %>%
+# ============================================
+# FUNÇÃO PARA GERAR OS GRÁFICOS
+# ============================================
+
+fazer_grafico <- function(ano_escolhido){
+  
+  ggplot(
+    nmx_plot %>% filter(ano == ano_escolhido),
+    
+    aes(
+      x = faixa_etaria,
+      y = nMx,
+      color = SEXO,
+      group = SEXO
+    )
+  ) +
+    
+    geom_line(linewidth = 1) +
+    
+    scale_y_log10(
+      labels = label_number(decimal.mark = ",")
+    ) +
+    
+    labs(
+      title = paste(
+        "Taxas Específicas de Mortalidade (nMx) -",
+        ano_escolhido
+      ),
+      
+      x = "Faixa etária",
+      y = "nMx",
+      color = "Sexo"
+    ) +
+    
+    theme_minimal(base_size = 13) +
+    
+    theme(
+      axis.text.x = element_text(
+        angle = 45,
+        hjust = 1
+      ),
+      
+      plot.title = element_text(
+        face = "bold",
+        hjust = 0.5
+      )
+    )
+  
+}
+
+
+# ============================================
+# CRIAR GRÁFICOS
+# ============================================
+
+grafico_2010 <- fazer_grafico(2010)
+
+grafico_2019 <- fazer_grafico(2019)
+
+grafico_2021 <- fazer_grafico(2021)
+
+grafico_2022 <- fazer_grafico(2022)
+
+grafico_2024 <- fazer_grafico(2024)
+
+
+# ============================================
+# SALVAR IMAGENS
+# ============================================
+
+ggsave(
+  "grafico_nmx_2010.png",
+  grafico_2010,
+  width = 7,
+  height = 3.5,
+  dpi = 200
+)
+
+ggsave(
+  "grafico_nmx_2019.png",
+  grafico_2019,
+  width = 7,
+  height = 4,
+  dpi = 200
+)
+
+ggsave(
+  "grafico_nmx_2021.png",
+  grafico_2021,
+  width = 7,
+  height = 3.5,
+  dpi = 200
+)
+
+ggsave(
+  "grafico_nmx_2022.png",
+  grafico_2022,
+  width = 7,
+  height = 3.5,
+  dpi = 200
+)
+
+ggsave(
+  "grafico_nmx_2024.png",
+  grafico_2024,
+  width = 7,
+  height = 3.5,
+  dpi = 200
+)
+
+
+
+
+# ============================================
+# AJUSTAR FAIXAS ETÁRIAS
+# ============================================
+
+nmx_tabela <- nmx %>%
+  
+  filter(
+    !is.na(SEXO),
+    !is.na(faixa_etaria)
+  ) %>%
   
   mutate(
     
-    obitos = format(
+    # Juntar <1 e 1-4 em 0-4
+    faixa_etaria = case_when(
+      
+      faixa_etaria %in% c("<1", "1-4") ~ "0-4",
+      
+      TRUE ~ as.character(faixa_etaria)
+    )
+    
+  ) %>%
+  
+  group_by(
+    ano,
+    SEXO,
+    faixa_etaria
+  ) %>%
+  
+  summarise(
+    
+    obitos = sum(obitos, na.rm = TRUE),
+    
+    populacao = sum(populacao, na.rm = TRUE),
+    
+    .groups = "drop"
+    
+  ) %>%
+  
+  mutate(
+    
+    nMx = (obitos / populacao) * 1000
+    
+  )
+
+
+# ============================================
+# ORDEM DAS FAIXAS
+# ============================================
+
+ordem_faixas <- c(
+  "0-4",
+  "5-9",
+  "10-14",
+  "15-19",
+  "20-24",
+  "25-29",
+  "30-34",
+  "35-39",
+  "40-44",
+  "45-49",
+  "50-54",
+  "55-59",
+  "60-64",
+  "65-69",
+  "70-74",
+  "75-79",
+  "80+"
+)
+
+
+# ============================================
+# ORGANIZAR ORDEM
+# ============================================
+
+nmx_tabela <- nmx_tabela %>%
+  
+  filter(
+    faixa_etaria %in% ordem_faixas
+  ) %>%
+  
+  mutate(
+    
+    faixa_etaria = factor(
+      faixa_etaria,
+      levels = ordem_faixas
+    )
+    
+  )
+
+
+# ============================================
+# ANOS DISPONÍVEIS
+# ============================================
+
+anos <- sort(unique(nmx_tabela$ano))
+
+
+# ============================================
+# GERAR E SALVAR TABELAS
+# ============================================
+
+for(a in anos){
+  
+  # ----------------------------------------
+  # Criar tabela
+  # ----------------------------------------
+  
+  tabela_temp <- nmx_tabela %>%
+    
+    filter(
+      ano == a
+    ) %>%
+    
+    select(
+      faixa_etaria,
+      SEXO,
       obitos,
-      big.mark = ".",
-      decimal.mark = ","
-    ),
+      populacao,
+      nMx
+    ) %>%
     
-    populacao = format(
-      round(populacao),
-      big.mark = ".",
-      decimal.mark = ","
-    ),
+    pivot_wider(
+      names_from = SEXO,
+      values_from = c(
+        obitos,
+        populacao,
+        nMx
+      )
+    ) %>%
     
-    TBM = format(
-      round(TBM, 2),
-      decimal.mark = ","
+    rename(
+      
+      `Grupo etário` = faixa_etaria,
+      
+      `Óbitos Masculino` = obitos_Masculino,
+      `Óbitos Feminino` = obitos_Feminino,
+      
+      `População Masculino` = populacao_Masculino,
+      `População Feminino` = populacao_Feminino,
+      
+      `nMx Masculino` = nMx_Masculino,
+      `nMx Feminino` = nMx_Feminino
+      
     )
+  
+  
+  # ----------------------------------------
+  # Formatar tabela
+  # ----------------------------------------
+  
+  tabela_gt <- tabela_temp %>%
     
-  ) %>%
+    gt() %>%
+    
+    tab_header(
+      title = paste(
+        "Taxas Específicas de Mortalidade (nMx) - Paraná -",
+        a
+      )
+    ) %>%
+    
+    # Fundo verde claro nos nomes das colunas
+    tab_style(
+      
+      style = list(
+        
+        cell_fill(
+          color = "#D9EAD3"
+        ),
+        
+        cell_text(
+          weight = "bold"
+        )
+        
+      ),
+      
+      locations = cells_column_labels(
+        everything()
+      )
+      
+    ) %>%
+    
+    # Centralizar texto
+    cols_align(
+      align = "center",
+      columns = everything()
+    ) %>%
+    
+    # Formatar números
+    fmt_number(
+      columns = contains("Óbitos"),
+      decimals = 0,
+      sep_mark = "."
+    ) %>%
+    
+    fmt_number(
+      columns = contains("População"),
+      decimals = 0,
+      sep_mark = "."
+    ) %>%
+    
+    fmt_number(
+      columns = starts_with("nMx"),
+      decimals = 4,
+      dec_mark = ","
+    )
   
-  pivot_longer(
-    cols = c(obitos, populacao, TBM),
-    names_to = "Indicador",
-    values_to = "Valor"
-  ) %>%
   
-  pivot_wider(
-    names_from = ano,
-    values_from = Valor
-  ) %>%
+  # ----------------------------------------
+  # Salvar PNG
+  # ----------------------------------------
   
-  mutate(
-    Indicador = c("Óbitos", "População", "TBM")
+  gtsave(
+    data = tabela_gt,
+    
+    filename = paste0(
+      "tabela_nmx_",
+      a,
+      ".png"
+    ),
+    
+    zoom = 0.55
   )
+  
+}
 
-# TABELA
-
-tabela_tbm <- tbm_tabela %>%
-  
-  gt(
-    rowname_col = "Indicador"
-  ) %>%
-  
-  # "Anos" no canto superior esquerdo
-  tab_stubhead(
-    label = "Anos"
-  ) %>%
-  
-  cols_label(
-    `2010` = "2010",
-    `2019` = "2019",
-    `2021` = "2021",
-    `2022` = "2022",
-    `2024` = "2024"
-  ) %>%
-  
-  # Mesmo estilo para "Anos" e cabeçalho
-  tab_style(
-    style = list(
-      cell_fill(color = "#dfe8d5"),
-      cell_text(weight = "bold")
-    ),
-    
-    locations = list(
-      cells_stubhead(),
-      cells_column_labels()
-    )
-  ) %>%
-  
-  # Mesmo estilo para nomes das linhas
-  tab_style(
-    style = list(
-      cell_fill(color = "#dfe8d5"),
-      cell_text(weight = "bold")
-    ),
-    
-    locations = cells_stub()
-  ) %>%
-  
-  # Linha TBM azul
-  tab_style(
-    style = list(
-      cell_fill(color = "#d9e3f0"),
-      cell_text(weight = "bold")
-    ),
-    
-    locations = cells_body(
-      rows = Indicador == "TBM"
-    )
-  ) %>%
-  
-  cols_align(
-    align = "center",
-    columns = everything()
-  )
