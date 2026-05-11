@@ -303,11 +303,6 @@ nmx <- obitos_especificos %>%
   )
 
 
-# ============================================
-# 8. GRÁFICO nMx
-# ============================================
-
-
 # AJUSTAR ORDEM DAS FAIXAS ETÁRIAS
 
 nmx <- nmx %>%
@@ -343,6 +338,40 @@ nmx <- nmx %>%
     )
     
   )
+
+# ============================================
+# nMx PARA <1 E 1-4 ANOS
+# ============================================
+nmx_primeiras_idades <- obitos_especificos %>%
+  
+  left_join(
+    pop_pr_tidy,
+    by = c(
+      "ano",
+      "SEXO" = "sexo",
+      "faixa_etaria"
+    )
+  ) %>%
+  
+  mutate(
+    nMx = (obitos / populacao) * 1000
+  ) %>%
+  
+  filter(
+    faixa_etaria %in% c("<1", "1-4"),
+    !is.na(SEXO)
+  ) %>%
+  
+  arrange(
+    ano,
+    SEXO,
+    faixa_etaria
+  )
+
+
+# ============================================
+# 8. GRÁFICO nMx
+# ============================================
 
 
 # GRÁFICO - HOMENS
@@ -658,7 +687,9 @@ nmx_tabela <- nmx_tabela %>%
       levels = ordem_faixas
     )
     
-  )
+  ) %>%
+  
+  arrange(faixa_etaria)
 
 
 # ============================================

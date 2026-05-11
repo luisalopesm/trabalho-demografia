@@ -7,8 +7,8 @@ library(lubridate)
 # ---------------------------------------------------
 
 DO2010 <- fetch_datasus(
-  year_start = 2024,
-  year_end = 2024,
+  year_start = 2010,
+  year_end = 2010,
   uf = "PR",
   information_system = "SIM-DO"
 )
@@ -24,9 +24,6 @@ DO2010 <- process_sim(DO2010)
 # ---------------------------------------------------
 
 df_base <- DO2010 %>%
-  
-  # Curitiba = código IBGE 4106902
-  filter(CODMUNRES == "410690") %>%
   
   select(SEXO, DTNASC, DTOBITO) %>%
   

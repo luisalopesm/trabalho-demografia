@@ -378,74 +378,6 @@ b\) Calcule a TMI, utilizando o **número médio de óbitos ocorridos entre 2022
 
 **Resposta:**
 
-$Taxa\ de\ Mortalidade\ Infantil$
-
-$$
-TMI = \frac{D_{<1}}{NV} \times 1000
-$$
-
-em que:
-
-- $D_{<1}$ representa o número de óbitos de menores de 1 ano;
-- $NV$ representa o número de nascidos vivos.
-
-$Taxa\ de\ Mortalidade\ Infantil\ Neonatal$
-
-$$
-TMI_{neo} = \frac{D_{0-27}}{NV} \times 1000
-$$
-
-em que:
-
-- $D_{0-27}$ representa o número de óbitos entre 0 e 27 dias de vida;
-- $NV$ representa o número de nascidos vivos.
-
-$Taxa\ de\ Mortalidade\ Infantil\ Precoce$
-
-$$
-TMI_{prec} = \frac{D_{0-6}}{NV} \times 1000
-$$
-
-em que:
-
-- $D_{0-6}$ representa o número de óbitos entre 0 e 6 dias de vida;
-- $NV$ representa o número de nascidos vivos.
-
-$Taxa\ de\ Mortalidade\ Infantil\ Tardia$
-
-$$
-TMI_{tardia} = \frac{D_{7-27}}{NV} \times 1000
-$$
-
-em que:
-
-- $D_{7-27}$ representa o número de óbitos entre 7 e 27 dias de vida;
-- $NV$ representa o número de nascidos vivos.
-
-$Taxa\ de\ Mortalidade\ Infantil\ Posneonatal$
-
-$$
-TMI_{pos} = \frac{D_{28-364}}{NV} \times 1000
-$$
-
-em que:
-
-- $D_{28-364}$ representa o número de óbitos entre 28 e 364 dias de vida;
-- $NV$ representa o número de nascidos vivos.
-
-
-$Taxa\ de\ Mortalidade\ Infantil\ Perinatal$
-
-$$
-TMP = \frac{OF + D_{0-6}}{NV + OF} \times 1000
-$$
-
-em que:
-
-- $OF$ representa o número de óbitos fetais;
-- $D_{0-6}$ representa o número de óbitos neonatais precoces (0 a 6 dias de vida);
-- $NV$ representa o número de nascidos vivos.
-
 ```{r, echo=FALSE, out.width="75%", fig.align="center"}
 knitr::include_graphics("questao-3/tabela_taxas_mortalidade.png")
 ```
@@ -468,3 +400,19 @@ d\) Construa Tábuas de Vida para cada sexo para a UF escolhida para 2010 e 2024
 -   Comente os resultados à luz de artigos recém publicados.
 
 **Resposta:**
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_fem_2010.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_fem_2010.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_fem_2024.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_masc_2024.png")
+```
