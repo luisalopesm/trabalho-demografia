@@ -378,30 +378,78 @@ b\) Calcule a TMI, utilizando o **número médio de óbitos ocorridos entre 2022
 
 **Resposta:**
 
-$Taxa\ de\ Mortalidade\ Infantil\ Neonatal$
-```{r, echo=FALSE}
+$Taxa\ de\ Mortalidade\ Infantil$
 
-```
+$$
+TMI = \frac{D_{<1}}{NV} \times 1000
+$$
+
+em que:
+
+- $D_{<1}$ representa o número de óbitos de menores de 1 ano;
+- $NV$ representa o número de nascidos vivos.
+
+$Taxa\ de\ Mortalidade\ Infantil\ Neonatal$
+
+$$
+TMI_{neo} = \frac{D_{0-27}}{NV} \times 1000
+$$
+
+em que:
+
+- $D_{0-27}$ representa o número de óbitos entre 0 e 27 dias de vida;
+- $NV$ representa o número de nascidos vivos.
 
 $Taxa\ de\ Mortalidade\ Infantil\ Precoce$
-```{r, echo=FALSE}
 
-```
+$$
+TMI_{prec} = \frac{D_{0-6}}{NV} \times 1000
+$$
+
+em que:
+
+- $D_{0-6}$ representa o número de óbitos entre 0 e 6 dias de vida;
+- $NV$ representa o número de nascidos vivos.
 
 $Taxa\ de\ Mortalidade\ Infantil\ Tardia$
-```{r, echo=FALSE}
 
-```
+$$
+TMI_{tardia} = \frac{D_{7-27}}{NV} \times 1000
+$$
+
+em que:
+
+- $D_{7-27}$ representa o número de óbitos entre 7 e 27 dias de vida;
+- $NV$ representa o número de nascidos vivos.
 
 $Taxa\ de\ Mortalidade\ Infantil\ Posneonatal$
-```{r, echo=FALSE}
 
-```
+$$
+TMI_{pos} = \frac{D_{28-364}}{NV} \times 1000
+$$
+
+em que:
+
+- $D_{28-364}$ representa o número de óbitos entre 28 e 364 dias de vida;
+- $NV$ representa o número de nascidos vivos.
+
 
 $Taxa\ de\ Mortalidade\ Infantil\ Perinatal$
-```{r, echo=FALSE}
 
+$$
+TMP = \frac{OF + D_{0-6}}{NV + OF} \times 1000
+$$
+
+em que:
+
+- $OF$ representa o número de óbitos fetais;
+- $D_{0-6}$ representa o número de óbitos neonatais precoces (0 a 6 dias de vida);
+- $NV$ representa o número de nascidos vivos.
+
+```{r, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_taxas_mortalidade.png")
 ```
+
 
 c\) Compare a estrutura de mortalidade por causas entre 2010, 2021 e 2024. Utilize 20 grupos de causas mais frequentes, segundo os grupos do CID-10 (ver Tabnet - Datasus), por sexo, e grupos de idade (\<5; 5 a 14; 15-39; 40-59; 60 e +) para os anos selecionados. Comente os resultados. Destacar a mortalidade por Covid-19 (CID B34.2).
 
