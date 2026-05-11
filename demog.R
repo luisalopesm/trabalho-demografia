@@ -14,6 +14,51 @@ obitos <- read_csv2("mortalidade-curitiba.csv",
 obitos <- obitos[1:(nrow(obitos) - 8), ]
 
 
+### Questão 1. d) 
+
+library(tidyverse)
+library(dplyr)
+
+nascidos <- read_csv2("C:/Users/prhel/Downloads/sinasc_cnv_nvpr212311189_6_17_63.csv")
+obitos <- read_csv2("C:/Users/prhel/Downloads/sim_cnv_obt10pr212729189_6_17_63.csv")
+
+colnames(nascidos)[1] <- "Raca_Cor"
+colnames(obitos)[1] <- "Raca_Cor"
+
+nascidos_long <- nascidos %>%
+  pivot_longer(
+    cols = c(`2022`, `2023`), # Seleciona as colunas dos anos
+    names_to = "Ano", 
+    values_to = "Total_Nascidos"
+  )
+
+obitos_long <- obitos %>%
+  pivot_longer(
+    cols = c(`2022`, `2023`), 
+    names_to = "Ano", 
+    values_to = "Total_Obitos_Menor_1_Ano"
+  )
+
+dados_completos <- inner_join(nascidos_long, obitos_long, by = c("Raca_Cor", "Ano"))
+
+dados_finais <- dados_completos %>%
+  mutate(
+    # Para garantir que os valores são números (as vezes o Tabnet traz "-" em valores zerados)
+    Total_Nascidos = as.numeric(Total_Nascidos),
+    Total_Obitos_Menor_1_Ano = as.numeric(Total_Obitos_Menor_1_Ano),
+    
+    # A probabilidade bruta de morrer antes de 1 ano
+    Probabilidade = Total_Obitos_Menor_1_Ano / Total_Nascidos,
+    
+    # É padrão em epidemiologia apresentar esse dado como Taxa (por 1.000 nascidos vivos)
+    Taxa_Mortalidade_Infantil_por_1000 = Probabilidade * 1000
+  ) %>%
+  # Remove os NA caso alguma categoria não tenha dados cruzados
+  drop_na()
+
+# 5. Visualizar o resultado
+print(dados_finais)
+
 ### Questão 2. d) 
 
 dados <- data.frame(
