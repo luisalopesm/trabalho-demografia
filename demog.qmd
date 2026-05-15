@@ -41,6 +41,12 @@ e\) Comente os valores encontrados. Não se esquecer da qualidade da informaçã
 
 **Resposta:**
 
+No diagrama de lexis dos nascidos vivos entre 2000 e 2024 percebe-se que as coortes de 2000–2002 são as maiores, com aproximadamente 27.000 nascidos vivos. A partir daí há queda progressiva, atingindo cerca de 17.000 nos últimos anos analisados. Percebe-se que a taxa de natalidade tem diminuido do inicio do sécullo para atualmente.
+
+No diagrama de óbitos, percebe-se que as diferenças na quantidade de mortes de crianças até 5 anos se mantem parecida com o passar dos anos. O número de mortes no primeiro ano de vida foi o maior em todo o intervalo analisado, diminuindo gradativamente a medida que as crianças crescem.
+
+A probabilidade de sobreviver a idade exata 5 vária de 98,27% no ano de 2020 a 99,30% em 2019. Com o passar dos anos ela variou pouco, tendo seus maiores aumentos de um ano para o outro de 2000 para 2001 e 2018 para 2019, ambos com aumento de 0,24%. Já a probabilidade de sobreviver ao primeiro nascimento teve seu mínimo no ano 2000, com 98,51% e o máximo em 2019 com 99,37%. A diferença pequena entre os resultados desses dois gráficos mostram novamente que o número de mortes da idade exata 1 até a idade extata 5.
+
 ### **Questão 2: Natalidade/Fecundidade**
 
 a\) Com base nos dados do SINASC, para cada um dos anos seguintes: 2010, 2019, 2021, 2022 e 2024, e na população por sexo e idade estimada (projetada), construa os seguintes indicadores para a Unidade da Federação (Use as projeções do IBGE - Revisão 2024) :
