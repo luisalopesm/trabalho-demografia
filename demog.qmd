@@ -3,6 +3,8 @@ title: "Trabalho 1 - Demografia"
 format: pdf
 editor: visual
 author: "Camila Mesquita, Laíse Ribeiro, Luísa Lopes, Nícolas Baldez  - Curitiba (PR)"
+header-includes:
+  - \usepackage{multirow}
 ---
 
 ```{r setup}
@@ -15,13 +17,21 @@ a\) Construir o Diagrama de Lexis para os dados de nascidos vivos de 2000 a 2024
 
 **Resposta:**
 
+![](Rplot03.png)
+
+![](Rplot04.png)
+
 b\) Supondo população fechada (inexistência de migração), calcule a probabilidade de um recém-nascido na UF ou no território de escolha sobreviver à idade exata de 5 para as coortes de 2000 a 2019.
 
 **Resposta:**
 
+![](Rplot06.png)
+
 c\) Considerando o mesmo pressuposto, calcule a probabilidade de sobreviver ao primeiro aniversário dos recém-nascidos no período de 2000 a 2023.
 
 **Resposta:**
+
+![](Rplot07.png)
 
 d\) Para os anos de 2022 e 2023, calcule a probabilidade de morrer antes de completar o primeiro aniversário, segundo raça/cor (Desafio)
 
@@ -47,7 +57,7 @@ a\) Com base nos dados do SINASC, para cada um dos anos seguintes: 2010, 2019, 2
 
 -   Taxa Líquida de Reprodução (é necessária a informação da função L da Tábua de Vida)
 
-**Resposta:**
+**Resposta:** Para resolver essa questão, foram utilizadas seis tabelas diferentes, sendo duas vindas do Ripsa ("População residente por Ano segundo Faixa Etária 2, Município: 410690 CURITIBA, Período: 2010, 2019, 2021-2022, 2024"; "População residente por Ano segundo Faixa Etária 2, Município: 410690 CURITIBA, Sexo: Feminino, Período: 2010, 2019, 2021-2022, 2024"), duas vindas do DataSus - Tabnet ("Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Capital: 410690 Curitiba, Período: 2010, 2019, 2021-2022, 2024"; "Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Município: 410690 CURITIBA, Sexo: Fem, Período: 2010, 2019, 2021-2022, 2024"), e duas vindas da Projeção de População do IBGE ("População por sexo e grupos quiquenais", "Tábuas de Mortalidade")
 
 $TBN = \frac{N}{P} \times 1000$
 
@@ -57,8 +67,18 @@ $N$: Número total de nascidos vivos ocorridos no período
 
 $P$: População média do período
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TBN.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa Bruta de Natalidade}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TBN & 14,019 & 11,598 & 10,090 & 10,017 & 9,224 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
 $TFG = \frac{N}{P_f} \times 1000$
@@ -69,30 +89,59 @@ $N$: Número total de nascidos vivos ocorridos no período
 
 $P_f$: População feminina média entre 15 e 49 anos
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TFG.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas de Fecundidade Geral}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TFG & 47,284 & 42,157 & 37,169 & 37,128 & 34,726 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-$nfx = \frac{Nx}{P_fx}$ e $TEF = \frac{Nx}{Pfx} \times 1000$
+$nfx = \frac{Nx}{P_fx}$
 
-$nfx$: Nascidos vivos por grupo etário da mãe
+*obs:* Geralmente, em tabelas, a $nfx$ aparece multiplicada por 1000. Entretanto, para fazer os demais cálculos e gráficos, ela aparece da forma que é calculada - com casas decimais.
 
-$TEF$: Taxas Específicas de Fecundidade
+$nfx$: Taxas Específicas de Fecundidade
 
-$Nx$: Nascidos vivos de mãe entre as idades x e x+n
+$Nx$: Nascidos vivos de mãe entre as idades $x$ e $x+n$
 
-$P_fx$: População média feminina entre as idades x e x+n
+$P_fx$: População média feminina entre as idades $x$ e $x+n$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TEF_nfx.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas específicas de fecundidade}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Taxa & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{nfx} 
+& 15-19 & 48,531 & 26,508 & 20,202 & 18,128 & 15,464 \\ 
+& 20-24 & 70,566 & 59,563 & 52,531 & 52,120 & 46,246 \\ 
+& 25-29 & 73,706 & 67,823 & 61,895 & 63,043 & 59,996 \\ 
+& 30-34 & 70,676 & 71,983 & 64,595 & 64,544 & 62,665 \\ 
+& 35-39 & 40,456 & 49,945 & 44,928 & 45,492 & 44,647 \\ 
+& 40-44 & 9,201 & 11,765 & 11,256 & 12,442 & 11,907 \\ 
+& 45-49 & 0,615 & 0,788 & 0,814 & 0,849 & 0,860 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-Gráficos de $TFG$ e $nfx$:
+Gráficos de $nfx$ e $TFG$:
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TFG_grafico.png")
-knitr::include_graphics("quest2/nfx_grafico.png")
-```
+::: {style="text-align: center;"}
+![](nfx_curitiba.png){width=65%}
+:::
+::: {style="text-align: center;"}
+![](tfg_curitiba.png){width=65%}
+:::
 
 $TFT = 5\sum_{i=1}^{7} f_i$
 
@@ -100,20 +149,49 @@ $TFT$: Taxa de Fecundidade Total
 
 $f_i$: grupos quinquenais de $nfx$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TFT.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa de Fecundidade Total}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TFT & 1,569 & 1,442 & 1,281 & 1,283 & 1,209 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-$f^f_x = \frac{N_f}{P_fx} \times 1000$
+$f^f_x = \frac{N_f}{P_fx}$
+
+*obs:* Assim como a $nfx$, a $f^f_x$ é apresentada, em tabelas, sendo multiplicada por 1000, mas para os demais cálculos, ela aparece da forma como é calculada.
 
 $f^f_x$: Taxas Específicas de Fecundidade feminina
 
-$N_f$: Nascidos vivos femininos de mães entre as idades x e x+n
+$N_f$: Nascidos vivos femininos de mães entre as idades $x$ e $x+n$
 
-$P_fx$: População média feminina entre as idades x e x+n
+$P_fx$: População média feminina entre as idades $x$ e $x+n$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TEF_f.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas Específicas de Fecundidade Feminina}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Taxa & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$f^f_x$}
+& 15-19 & 23,510 & 13,174 & 9,925 & 8,987 & 7,271 \\ 
+& 20-24 & 34,843 & 29,474 & 26,095 & 25,850 & 23,169 \\ 
+& 25-29 & 35,973 & 33,314 & 30,334 & 32,140 & 29,285 \\ 
+& 30-34 & 34,759 & 34,901 & 30,858 & 32,168 & 31,022 \\ 
+& 35-39 & 19,628 & 24,306 & 22,196 & 22,087 & 21,541 \\ 
+& 40-44 & 4,572 & 5,762 & 5,583 & 6,036 & 5,486 \\ 
+& 45-49 & 0,337 & 0,321 & 0,392 & 0,503 & 0,388 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
 $TBR = 5\sum_{i=1}^{7} f^f_i$
@@ -122,8 +200,18 @@ $TBR$: Taxa Bruta de Reprodução
 
 $f^f_i$: grupos quinquenais de $f^f_x$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TBR.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa Bruta de Reprodução}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TBR & 0,766 & 0,705 & 0,625 & 0,636 & 0,589 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
 $TLR = \sum_{i=1}^{7} f^f_i \times\frac{L^f_i}{l_0}$
@@ -134,64 +222,156 @@ $f^f_i$: grupos quinquenais de $f^f_x$
 
 $L^f_i$: Função da Tábua de vida
 
-$l_0$: raiz da Tábua de vida, representa o número de nascimentos
+$l_0$: raiz da Tábua de vida, representa o número de nascimentos (nesse caso, 100.000)
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TLR.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Tábua de vida (Paraná)}
+\begin{tabular}{|l|ccccc|}
+\hline
+Tábua de vida & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$nLx$}
+& 491.654 & 493.104 & 493.391 & 493.096 & 493.215 \\ 
+& 490.196 & 491.960 & 491.835 & 491.743 & 492.064 \\ 
+& 488.543 & 490.655 & 489.629 & 490.009 & 490.597 \\ 
+& 486.526 & 488.963 & 486.551 & 487.995 & 488.688 \\ 
+& 483.837 & 486.592 & 482.255 & 485.315 & 486.260 \\ 
+& 480.019 & 483.348 & 476.003 & 481.629 & 482.855 \\ 
+& 474.342 & 478.411 & 466.817 & 476.377 & 477.875 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas específicas de fecundidade feminina (Paraná)}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Taxa & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$f^f_x$}
+& 15-19 & 28,931 & 20,820 & 17,922 & 16,575 & 14,155 \\ 
+& 20-24 & 41,919 & 39,383 & 37,452 & 36,905 & 33,476 \\ 
+& 25-29 & 40,536 & 42,049 & 39,376 & 40,483 & 38,909 \\ 
+& 30-34 & 31,667 & 37,432 & 34,712 & 35,025 & 33,067 \\ 
+& 35-39 & 16,365 & 21,825 & 20,369 & 20,801 & 20,275 \\ 
+& 40-44 & 4,002 & 5,487 & 5,525 & 5,569 & 5,424 \\ 
+& 45-49 & 0,298 & 0,308 & 0,298 & 0,325 & 0,363 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+```{=latex}
+\begin{table}[H]
+\centering
+\caption{Multiplicação (Paraná)}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Multiplicação & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$f^f_i \cdot \frac{L^f_i}{l_0}$}
+& 15-19 & 0,142 & 0,103 & 0,088 & 0,082 & 0,070 \\ 
+& 20-24 & 0,205 & 0,194 & 0,184 & 0,181 & 0,165 \\ 
+& 25-29 & 0,198 & 0,206 & 0,193 & 0,198 & 0,191 \\ 
+& 30-34 & 0,154 & 0,183 & 0,169 & 0,171 & 0,162 \\ 
+& 35-39 & 0,079 & 0,106 & 0,098 & 0,101 & 0,099 \\ 
+& 40-44 & 0,019 & 0,027 & 0,026 & 0,027 & 0,026 \\ 
+& 45-49 & 0,001 & 0,001 & 0,001 & 0,002 & 0,002 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa Líquida de Reprodução (Paraná)}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TLR & 0,800 & 0,820 & 0,760 & 0,762 & 0,714 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+
+Nos anos analisados (2010, 2019, 2021, 2022 e 2024), Curitiba apresentou redução da natalidade e da fecundidade. A TBN caiu de 14,019 para 9,224 nascimentos por mil habitantes, enquanto a TFG reduziu de 47,284 para 34,726, indicando diminuição do número de nascimentos e do número médio de filhos por mulher. Além disso, as Taxas Específicas de Fecundidade mostram um deslocamento da fecundidade para idades mais elevadas. Em 2010, o pico ocorreu entre 25–29 anos, indicando fecundidade tardia, mas, a partir de 2019, passou para 30–34 anos, caracterizando fecundidade muito tardia.
+
+A TFT caiu de 1,569 para 1,209 filhos por mulher, permanecendo abaixo do nível de reposição populacional (aproximadamente 2,1 filhos por mulher) em todos os anos analisados. Isso indica que a população não está se reproduzindo em nível suficiente para substituir as gerações futuras. O mesmo ocorre com a TBR e a TLR, que permaneceram abaixo de 1 durante todo o período. Como a TLR possui nível de reposição igual a 1, os valores observados indicam que cada geração de mulheres não está conseguindo substituir integralmente a geração anterior. Para a TLR, foram utilizados dados do Paraná como aproximação para Curitiba.
+
+De forma geral, os resultados mostram que as mulheres estão tendo menos filhos e em idades mais avançadas. Além disso, como os níveis de fecundidade e reprodução ficaram abaixo do nível de reposição, a tendência é de envelhecimento da população e diminuição do crescimento populacional ao longo do tempo.
+
 
 b\) Obtenha todos os indicadores de 2022, considerando a população recenseada nesse ano.
 
-**Resposta:**
+**Resposta:** Já para essa questão, foram utilizadas quatro tabelas diferentes, sendo uma vinda do Censo de 2022 do IBGE ("População por idade e sexo | Resultados do universo (Paraná - Curitiba)"), duas vindas do DataSus - Tabnet ("Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Município: 410690 CURITIBA, Período: 2022"; "Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Município: 410690 CURITIBA, Sexo: Fem, Período: 2022"), e uma vindas da Projeção de População do IBGE ("Tábuas de Mortalidade")
 
-$TBN$:
+```{=latex}
+\begin{table}[H]
+\centering
+\caption{Indicadores de fecundidade e reprodução — 2022}
+\begin{tabular}{|l|l|c|}
+\hline
+Taxa & Idade & 2022 \\ 
+\hline
+TBN &  & 10,371 \\ 
+\hline
+TFG &  & 38,449 \\ 
+\hline
 
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TBN2022.png")
+\multirow{7}{*}{nfx}
+& 15-19 & 20,071 \\ 
+& 20-24 & 54,829 \\ 
+& 25-29 & 65,563 \\ 
+& 30-34 & 66,066 \\ 
+& 35-39 & 46,248 \\ 
+& 40-44 & 12,539 \\ 
+& 45-49 & 0,869 \\ 
+\hline
+
+TFT &  & 1,331 \\ 
+\hline
+
+\multirow{7}{*}{$f^f_x$}
+& 15-19 & 9,950 \\ 
+& 20-24 & 27,194 \\ 
+& 25-29 & 33,425 \\ 
+& 30-34 & 32,927 \\ 
+& 35-39 & 22,454 \\ 
+& 40-44 & 6,083 \\ 
+& 45-49 & 0,516 \\ 
+\hline
+
+TBR &  & 0,663 \\ 
+\hline
+
+\multirow{7}{*}{$f^f_i \cdot \frac{L^f_i}{l_0}$}
+& 15-19 & 0,049 \\ 
+& 20-24 & 0,134 \\ 
+& 25-29 & 0,164 \\ 
+& 30-34 & 0,161 \\ 
+& 35-39 & 0,109 \\ 
+& 40-44 & 0,029 \\ 
+& 45-49 & 0,002 \\ 
+\hline
+
+TLR &  & 0,648 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-$TFG$:
+Gráficos de $nfx$ e $TFG$:
 
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TFG2022.png")
-```
-
-$nfx$ e $TEF$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TEF_nfx2022.png")
-```
-
-Gráficos de $TFG$ e $nfx$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TFG_grafico2022.png")
-knitr::include_graphics("quest2/nfx_grafico2022.png")
-```
-
-$TFT$:
-
-```{r, echo=FALSE, out.width="35%", fig.align='center'}
-knitr::include_graphics("quest2/TFT2022.png")
-```
-
-$f^f_x$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/ffx2022.png")
-```
-
-$TBR$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TBR2022.png")
-```
-
-$TLR$:
-
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TLR2022.png")
-```
+::: {style="text-align: center;"}
+![](nfx_curitiba2022.png){width=65%}
+:::
+::: {style="text-align: center;"}
+![](tfg_curitiba2022.png){width=40%}
+:::
 
 c\) Comente esses resultados (inclusive os gráficos das nfx), fazendo referência a artigos já publicados sobre o assunto.
 
@@ -208,26 +388,24 @@ Apresente graficamente os dados, obtenha medidas para essa associação e coment
 **Resposta:**
 
 Tabela e Gráfico de Contingência Escolaridade por Idade da mãe
+
 ```{r, echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("quest2/TCTF1.png")
 knitr::include_graphics("quest2/grafico1.png")
 ```
- 
-V de Cramer Interpretação < 0,10 Associação muito fraca 0,10 - 0,30 Associação fraca 0,30 - 0,50 Associação moderada 0,50 Associação forte Resumo para sua resposta: Análise Medida Valor Interpretação Idade vs. Escolaridade V de Cramer = 0,155 Entre 0,10-0,30 Associação fraca Parto vs. Escolaridade RP = 1,67 1 Escolaridade alta é fator de risco para cesárea (67% mais chance) Parto vs. Escolaridade RP = 0,60 < 1
-Escolaridade alta é fator de proteção contra cesárea (40% menos chance) 
+
+V de Cramer Interpretação \< 0,10 Associação muito fraca 0,10 - 0,30 Associação fraca 0,30 - 0,50 Associação moderada 0,50 Associação forte Resumo para sua resposta: Análise Medida Valor Interpretação Idade vs. Escolaridade V de Cramer = 0,155 Entre 0,10-0,30 Associação fraca Parto vs. Escolaridade RP = 1,67 1 Escolaridade alta é fator de risco para cesárea (67% mais chance) Parto vs. Escolaridade RP = 0,60 \< 1 Escolaridade alta é fator de proteção contra cesárea (40% menos chance)
 
 Análise (v de cramer = 0.1932063)
 
-
 Tabela e Gráfico da Escolaridade pelo Tipo de parto da mãe
+
 ```{r, echo=FALSE, out.width="70%", fig.align='center'}
 knitr::include_graphics("quest2/TCTF2.png")
 knitr::include_graphics("quest2/grafico2.png")
 ```
 
-
 Análise (v de cramer = 0.1337143/ associação fraca (0.10-0.15))
-
 
 ### **Questão 3: Mortalidade**
 
@@ -240,49 +418,159 @@ a\) Com base nos dados sobre óbitos do SIM para os anos: 2010, 2019, 2021, 2022
 **Resposta:**
 
 $Taxa\ Bruta\ de\ Mortalidade$:
-```{r, echo=FALSE}
 
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tbm.png")
 ```
 
 $Taxas\ Específicas\ de\ Mortalidade\ por\ sexo\ e\ idade$
-```{r, echo=FALSE}
 
+-   2010
+
+::::: columns
+::: {.column width="50%"}
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2010.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2010.png")
+```
+:::
+:::::
+
+-   2019
+
+::::: columns
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2019.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2019.png")
+```
+:::
+:::::
+
+-   2021
+
+::::: columns
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2021.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2021.png")
+```
+:::
+:::::
+
+-   2022
+
+::::: columns
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2022.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2022.png")
+```
+:::
+:::::
+
+-   2024
+
+::::: columns
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_nmx_2024.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nmx_2024.png")
+```
+:::
+:::::
+
+-   Comparação anual
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/nmx_homens.png")
 ```
 
-
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/nmx_mulheres.png")
+```
 
 b\) Calcule a TMI, utilizando o **número médio de óbitos ocorridos entre 2022 e 2024 (numerador) e o número de nascimentos de 2023 (denominador**). Calcule os indicadores: taxa de mortalidade neonatal, neonatal precoce, neonatal tardia, posneonatal. A partir da informação sobre óbitos fetais dos mesmos anos, calcule a taxa de mortalidade perinatal.
 
 **Resposta:**
 
-$Taxa\ de\ Mortalidade\ Infantil\ Neonatal$
-```{r, echo=FALSE}
-
+```{r, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_4_tmi_por_sexo.png")
 ```
 
-$Taxa\ de\ Mortalidade\ Infantil\ Precoce$
-```{r, echo=FALSE}
-
+```{r, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_1_mortalidade_infantil.png")
 ```
 
-$Taxa\ de\ Mortalidade\ Infantil\ Tardia$
-```{r, echo=FALSE}
-
+```{r, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_2_mortalidade_perinatal.png")
 ```
 
-$Taxa\ de\ Mortalidade\ Infantil\ Posneonatal$
-```{r, echo=FALSE}
-
-```
-
-$Taxa\ de\ Mortalidade\ Infantil\ Perinatal$
-```{r, echo=FALSE}
-
-```
 
 c\) Compare a estrutura de mortalidade por causas entre 2010, 2021 e 2024. Utilize 20 grupos de causas mais frequentes, segundo os grupos do CID-10 (ver Tabnet - Datasus), por sexo, e grupos de idade (\<5; 5 a 14; 15-39; 40-59; 60 e +) para os anos selecionados. Comente os resultados. Destacar a mortalidade por Covid-19 (CID B34.2).
 
 **Resposta:**
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("questao-3/grafico_comparacao_temporal.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_idade_2010.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_idade_2021.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_idade_2024.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_sexo_2010.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_sexo_2021.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_sexo_2024.png")
+```
+
+A estrutura de mortalidade em Curitiba apresenta, nos 3 anos observados, um predomínio de doenças crônicas não transmissíveis, mas que sofreu um rompimento em 2021 devido à pandemia de Covid-19. Os dados mostram que as doenças do aparelho circulatório e as neoplasias lideram consistentemente o volume de óbitos na população geral e na faixa de 60 anos ou mais, enquanto as causas externas — como acidentes e violência — exercem um impacto maior sobre o sexo masculino e a população jovem (15 a 39 anos). No entanto, em 2021, a Covid-19 subverteu essa distribuição, sendo a principal causa de mortalidade em Curitiba, registrando um volume de óbitos que praticamente duplicou em relação às causas de morte predominantes anteriormente e afetando de forma mais acentuada os homens em idade adulta.
+
+  Ao analisar o comportamento por subgrupos, a Covid-19 revelou impactos diferentes a depender da idade e do sexo, poupando quase por completo os perfis infantis, cujos óbitos permaneceram concentrados em afecções perinatais e malformações congênitas para menores de 5 anos e em causas externas e neoplasias para a faixa de 5 a 14 anos. Em contrapartida, a população adulta de 40 a 59 anos e, especialmente, os idosos acima de 60 anos concentraram a maior mortalidade da pandemia em termos absolutos. Por gênero, as disparidades se evidenciaram não apenas na maior letalidade do vírus entre os homens, mas também na persistência da sobremortalidade masculina por causas externas em todos os períodos analisados.
+
+  Por fim, o cenário observado em 2024 consolida o sucesso das estratégias de controle epidemiológico e da campanha de vacinação, demonstrando o recuo expressivo da Covid-19 e, consequentemente, a restauração da estrutura de mortalidade antes da pandemia. O retorno das doenças circulatórias e das neoplasias ao topo do ranking reflete a retomada do curso natural de transição demográfica da cidade, impulsionada pelo envelhecimento da população que eleva o número absoluto de óbitos por enfermidades crônicas em comparação a 2010. Assim, a comparação temporal evidencia que, apesar do trauma epidemiológico causado pela Covid-19 em 2021, o perfil de mortalidade de Curitiba recuperou sua previsibilidade estatística e a distribuição típica de regiões urbanas desenvolvidas.
+  
+  
 
 d\) Construa Tábuas de Vida para cada sexo para a UF escolhida para 2010 e 2024, a partir das taxas específicas de mortalidade obtidas no item a:
 
@@ -297,3 +585,19 @@ d\) Construa Tábuas de Vida para cada sexo para a UF escolhida para 2010 e 2024
 -   Comente os resultados à luz de artigos recém publicados.
 
 **Resposta:**
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_fem_2010.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_fem_2010.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_fem_2024.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/tb_vida_masc_2024.png")
+```

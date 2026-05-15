@@ -7,8 +7,8 @@ library(lubridate)
 # ---------------------------------------------------
 
 DO2010 <- fetch_datasus(
-  year_start = 2024,
-  year_end = 2024,
+  year_start = 2010,
+  year_end = 2010,
   uf = "PR",
   information_system = "SIM-DO"
 )
@@ -24,9 +24,6 @@ DO2010 <- process_sim(DO2010)
 # ---------------------------------------------------
 
 df_base <- DO2010 %>%
-  
-  # Curitiba = código IBGE 4106902
-  filter(CODMUNRES == "410690") %>%
   
   select(SEXO, DTNASC, DTOBITO) %>%
   
@@ -88,11 +85,11 @@ df_base <- DO2010 %>%
   )
 
 # ---------------------------------------------------
-# FILTRANDO APENAS HOMENS
+# FILTRANDO APENAS MULHERES
 # ---------------------------------------------------
 
 df <- df_base %>%
-  filter(SEXO == "Masculino")
+  filter(SEXO == "Feminino")
 
 # ---------------------------------------------------
 # CÁLCULO DO kx
@@ -111,7 +108,7 @@ kx <- df %>%
     k = round(mean(Idade - lim_inf), 2)
   )
 
-# PARA HOMENS
+# PARA MULHERES
 
 # se TMI >= 0.107, k0 = 0.35
 # se TMI < 0.107,  k0 = 0.053 + 2.8 * TMI
@@ -149,7 +146,7 @@ dx <- df %>%
   summarise(d = n()) %>%
   mutate(d = round((d / sum(d)) * 100000))
 
-
+ 
 
 # l -----------------------------------------------
 
@@ -182,7 +179,7 @@ Lx <- c(Lx, kx$k[18] * dx$d[18])
 soma <- Lx[18]
 
 Tx <- Lx[18]
- 
+
 for (i in 1:17) {
   soma <- soma + Lx[18 - i]
   Tx <- c(Tx, soma)
@@ -192,7 +189,7 @@ for (i in 1:17) {
 
 n <- c("1", "4", rep("5", 15), "+")
 
-tabua_de_vida_masculina <- left_join(kx, dx, by = "faixa_idade") %>%
+tabua_de_vida_feminina <- left_join(kx, dx, by = "faixa_idade") %>%
   mutate(n = n, lx = lx, Lx = Lx, Tx = rev(Tx)) %>%
   mutate(x = c(0, 1, seq(5, 80, by= 5)) ,ex = Tx / lx, qx = d / lx, dx = d, kx = k) %>%
   select(x, n, kx, qx, lx, dx, Lx, Tx, ex)
