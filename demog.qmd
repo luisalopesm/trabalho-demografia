@@ -348,8 +348,17 @@ b\) Calcule a TMI, utilizando o **número médio de óbitos ocorridos entre 2022
 **Resposta:**
 
 ```{r, echo=FALSE, out.width="75%", fig.align="center"}
-knitr::include_graphics("questao-3/tabela_taxas_mortalidade.png")
+knitr::include_graphics("questao-3/tabela_4_tmi_por_sexo.png")
 ```
+
+```{r, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_1_mortalidade_infantil.png")
+```
+
+```{r, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("questao-3/tabela_2_mortalidade_perinatal.png")
+```
+
 
 c\) Compare a estrutura de mortalidade por causas entre 2010, 2021 e 2024. Utilize 20 grupos de causas mais frequentes, segundo os grupos do CID-10 (ver Tabnet - Datasus), por sexo, e grupos de idade (\<5; 5 a 14; 15-39; 40-59; 60 e +) para os anos selecionados. Comente os resultados. Destacar a mortalidade por Covid-19 (CID B34.2).
 
