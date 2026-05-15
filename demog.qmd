@@ -43,17 +43,17 @@ e\) Comente os valores encontrados. Não se esquecer da qualidade da informaçã
 
 a\) Com base nos dados do SINASC, para cada um dos anos seguintes: 2010, 2019, 2021, 2022 e 2024, e na população por sexo e idade estimada (projetada), construa os seguintes indicadores para a Unidade da Federação (Use as projeções do IBGE - Revisão 2024) :
 
-- Taxa Bruta de Natalidade
+-   Taxa Bruta de Natalidade
 
-- Taxa Fecundidade Geral (TFG) e Taxas específicas de fecundidade - nfx (Grafique esses valores)
+-   Taxa Fecundidade Geral (TFG) e Taxas específicas de fecundidade - nfx (Grafique esses valores)
 
-- Taxa de Fecundidade Total (TFT) ou Índice Sintético de Fecundidade
+-   Taxa de Fecundidade Total (TFT) ou Índice Sintético de Fecundidade
 
-- Taxas específicas de fecundidade feminina (apenas os nascimentos femininos)
+-   Taxas específicas de fecundidade feminina (apenas os nascimentos femininos)
 
-- Taxa Bruta de Reprodução
+-   Taxa Bruta de Reprodução
 
-- Taxa Líquida de Reprodução (é necessária a informação da função L da Tábua de Vida)
+-   Taxa Líquida de Reprodução (é necessária a informação da função L da Tábua de Vida)
 
 **Resposta:**
 
@@ -207,9 +207,9 @@ c\) Comente esses resultados (inclusive os gráficos das nfx), fazendo referênc
 
 d\) Para os dados do SINASC para 2024, analise a associação entre (apresente ao menos uma medida de associação):
 
-- idade (em grupos de idade) e escolaridade da mãe (apresente a tabela de contingência e as frequências relativas)
+-   idade (em grupos de idade) e escolaridade da mãe (apresente a tabela de contingência e as frequências relativas)
 
-- tipo de parto e escolaridade da mãe (apresente a tabela de contingência e as frequências relativas)
+-   tipo de parto e escolaridade da mãe (apresente a tabela de contingência e as frequências relativas)
 
 Apresente graficamente os dados, obtenha medidas para essa associação e comente os resultados.
 
@@ -239,9 +239,9 @@ Análise (v de cramer = 0.1337143/ associação fraca (0.10-0.15))
 
 a\) Com base nos dados sobre óbitos do SIM para os anos: 2010, 2019, 2021, 2022 e 2024 e a população por sexo e idade estimada (projetada) para a UF ou território escolhido, obtenha os seguintes indicadores:
 
-- Taxa Bruta de Mortalidade
+-   Taxa Bruta de Mortalidade
 
-- Taxas específicas de mortalidade por sexo e idade - nMx (grafique)
+-   Taxas específicas de mortalidade por sexo e idade - nMx (grafique)
 
 **Resposta:**
 
@@ -253,7 +253,7 @@ knitr::include_graphics("questao-3/tbm.png")
 
 $Taxas\ Específicas\ de\ Mortalidade\ por\ sexo\ e\ idade$
 
-- 2010
+-   2010
 
 ::::: columns
 ::: {.column width="50%"}
@@ -269,7 +269,7 @@ knitr::include_graphics("questao-3/grafico_nmx_2010.png")
 :::
 :::::
 
-- 2019
+-   2019
 
 ::::: columns
 ::: {.column width="50%"}
@@ -285,7 +285,7 @@ knitr::include_graphics("questao-3/grafico_nmx_2019.png")
 :::
 :::::
 
-- 2021
+-   2021
 
 ::::: columns
 ::: {.column width="50%"}
@@ -301,7 +301,7 @@ knitr::include_graphics("questao-3/grafico_nmx_2021.png")
 :::
 :::::
 
-- 2022
+-   2022
 
 ::::: columns
 ::: {.column width="50%"}
@@ -317,7 +317,7 @@ knitr::include_graphics("questao-3/grafico_nmx_2022.png")
 :::
 :::::
 
-- 2024
+-   2024
 
 ::::: columns
 ::: {.column width="50%"}
@@ -333,7 +333,7 @@ knitr::include_graphics("questao-3/grafico_nmx_2024.png")
 :::
 :::::
 
-- Comparação anual
+-   Comparação anual
 
 ```{r, echo=FALSE, out.width="100%", fig.align="center"}
 knitr::include_graphics("questao-3/nmx_homens.png")
@@ -383,21 +383,17 @@ knitr::include_graphics("questao-3/grafico_sexo_2021.png")
 knitr::include_graphics("questao-3/grafico_sexo_2024.png")
 ```
 
-
-  
-
-
 d\) Construa Tábuas de Vida para cada sexo para a UF escolhida para 2010 e 2024, a partir das taxas específicas de mortalidade obtidas no item a:
 
-- Utilize a TMI obtida no item b. Lembre-se de que deve-se obter a TMI para cada sexo em separado.
+-   Utilize a TMI obtida no item b. Lembre-se de que deve-se obter a TMI para cada sexo em separado.
 
-- Estime os fatores de separação para cada sexo, nas idades 0-1 e 1-4, com base nos microdados do SIM.
+-   Estime os fatores de separação para cada sexo, nas idades 0-1 e 1-4, com base nos microdados do SIM.
 
-- Compare os valores da função de esperança de vida para as idades exatas 0 e 60 com os obtidos no estudo do IBGE (Projeções) e no estudo GBD. Comente os resultados obtidos e o significado desses indicadores.
+-   Compare os valores da função de esperança de vida para as idades exatas 0 e 60 com os obtidos no estudo do IBGE (Projeções) e no estudo GBD. Comente os resultados obtidos e o significado desses indicadores.
 
-- Com base na TV calculada, grafique as funções lx e nqx para cada sexo e comente os resultados.
+-   Com base na TV calculada, grafique as funções lx e nqx para cada sexo e comente os resultados.
 
-- Comente os resultados à luz de artigos recém publicados.
+-   Comente os resultados à luz de artigos recém publicados.
 
 **Resposta:**
 
