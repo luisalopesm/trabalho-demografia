@@ -373,9 +373,18 @@ Gráficos de $nfx$ e $TFG$:
 ![](tfg_curitiba2022.png){width=40%}
 :::
 
+Com base nos dados do Censo 2022, observa-se que Curitiba (considerando o recorte apresentado) mantém a tendência de queda na natalidade e na fecundidade. A Taxa de Fecundidade Geral (TFG) ficou em 38,5, o que reforça a diminuição do número de nascimentos em relação ao total de mulheres em idade fértil. As Taxas Específicas de Fecundidade mostram que o comportamento reprodutivo está consolidado em idades mais avançadas. O pico de fecundidade ocorre agora de forma dividida entre as faixas de 25–29 e 30–34 anos (ambas com 0,066), o que caracteriza uma fecundidade tardia/ muito tardia.
+
+A TFT calculada a partir desses dados é de aproximadamente 1,33 filhos por mulher, permanecendo bem abaixo do nível de reposição populacional, que seria de 2,1 filhos (ou TLR = 1). Isso indica que a população não está conseguindo se reproduzir em nível suficiente para substituir as gerações atuais pelas futuras. De forma geral, os resultados do Censo confirmam que as mulheres estão tendo menos filhos e optando pela maternidade cada vez mais tarde. Como os níveis de fecundidade e reposição estão baixos, a tendência para o futuro continua sendo de envelhecimento populacional e redução no ritmo de crescimento da cidade.
+
 c\) Comente esses resultados (inclusive os gráficos das nfx), fazendo referência a artigos já publicados sobre o assunto.
 
-**Resposta:** As taxas específicas de fecundidade (nfx) aumentam gradualmente até o grupo de 20 a 29 anos e depois caem bruscamente a partir do ponto máximo de cada curva. Esse padrão se mantém em todos os anos analisados (2010, 2019, 2021, 2022 e 2024 - no caso da questão 2a), indicando que a fecundidade está concentrada nas idades adultas mais jovens, com poucos nascimentos no início e no final da vida reprodutiva. As demais taxas apresentam a mesma queda que a nfx. As taxas líquidas de reprodução, tanto na 2a quanto na 2b, estão abaixo de 1, ou seja, abaixo do nível de reposição, o que indica que ao longo do tempo, a população decresce.
+**Resposta:** Os resultados obtidos para Curitiba mostram, de forma geral, uma queda consistente da natalidade e da fecundidade ao longo do período analisado, o que é evidenciado pela redução da TBN, TFG e TFT. Além disso, os níveis de fecundidade e reprodução permanecem abaixo do nível de reposição em todos os anos, indicando que a geração atual não está sendo substituída integralmente pela seguinte.
+
+Nos gráficos de nfx, observa-se também uma mudança importante no padrão etário da fecundidade. Em 2010, o pico estava concentrado em 25–29 anos, enquanto nos anos mais recentes há um deslocamento para 30–34 anos, além de uma queda mais acentuada nas idades mais jovens. Isso indica um adiamento da maternidade e uma menor concentração de nascimentos em idades precoces.
+
+Esses resultados estão de acordo com o que é apontado em estudos e dados do IBGE, que mostram a redução contínua da fecundidade no Brasil e o aumento da idade média ao ter filhos. A literatura também destaca que esse padrão está relacionado a mudanças no comportamento reprodutivo ao longo do tempo. De forma geral, os resultados indicam não só redução do nível de fecundidade, mas também mudança no calendário reprodutivo, com menos filhos e em idades mais tardias.
+
 
 d\) Para os dados do SINASC para 2024, analise a associação entre (apresente ao menos uma medida de associação):
 
