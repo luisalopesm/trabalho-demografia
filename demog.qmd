@@ -403,9 +403,9 @@ knitr::include_graphics("quest2/TCTF1.png")
 knitr::include_graphics("quest2/grafico1.png")
 ```
 
-V de Cramer Interpretação \< 0,10 Associação muito fraca 0,10 - 0,30 Associação fraca 0,30 - 0,50 Associação moderada 0,50 Associação forte Resumo para sua resposta: Análise Medida Valor Interpretação Idade vs. Escolaridade V de Cramer = 0,155 Entre 0,10-0,30 Associação fraca Parto vs. Escolaridade RP = 1,67 1 Escolaridade alta é fator de risco para cesárea (67% mais chance) Parto vs. Escolaridade RP = 0,60 \< 1 Escolaridade alta é fator de proteção contra cesárea (40% menos chance)
-
-Análise (v de cramer = 0.1932063)
+A análise gráfica dos 16.872 registros indica uma clara progressão educacional acompanhando o avanço da idade. Mães mais jovens (até 19 anos) concentram-se na faixa de 8 a 11 anos de estudo. Já a partir dos 25 anos, há um rápido crescimento na proporção de mães com "12 anos e mais" de escolaridade, que passa a ser a categoria predominante após os 30 anos.
+Para quantificar essa relação, utilizou-se o V de Cramer, que resultou em 0,193. Esse valor indica uma associação estatística real, porém fraca.
+Essa aparente divergência entre a forte tendência visual do gráfico e o resultado baixo do teste ocorre por dois motivos centrais: a grande dispersão dos dados nas faixas etárias intermediárias (20 a 29 anos) e o fato de que o V de Cramer trata as categorias como nominais, ignorando a progressão natural de tempo e instrução que observamos visualmente.
 
 Tabela e Gráfico da Escolaridade pelo Tipo de parto da mãe
 
@@ -414,7 +414,9 @@ knitr::include_graphics("quest2/TCTF2.png")
 knitr::include_graphics("quest2/grafico2.png")
 ```
 
-Análise (v de cramer = 0.1337143/ associação fraca (0.10-0.15))
+A análise da tabela de contingência revela uma clara inversão no tipo de parto predominante conforme o nível de instrução aumenta. Entre mulheres com menor escolaridade (até 7 anos de estudo), o parto vaginal é o mais frequente. Na faixa de 8 a 11 anos, as modalidades se equilibram, com leve vantagem para a cesárea. Já entre as mães com "12 anos e mais", o parto cesáreo torna-se amplamente majoritário, registrando mais que o dobro de ocorrências em relação ao parto vaginal (5.518 cesáreas contra 2.485 vaginais).
+Para quantificar a força dessa relação, o V de Cramer calculado foi de 0,134. Esse valor aponta para uma associação estatisticamente existente, porém fraca.
+O resultado baixo na medida de associação, apesar da mudança nítida na preferência de parto, ocorre principalmente porque a quase totalidade da amostra (cerca de 95%) está concentrada em apenas duas categorias de escolaridade (8 a 11 anos e 12 anos e mais), gerando um desbalanceamento na tabela que diminui a força da associação capturada pelo teste.
 
 ### **Questão 3: Mortalidade**
 

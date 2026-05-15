@@ -120,3 +120,136 @@ v_cramer_final <- estatisticas_idade$cramer
 
 # Exibir o resultado
 print(v_cramer_final)
+
+#-------------------------------------------------
+
+# Questão 1 d) 
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)
+
+# 1. Lendo os dados
+# Como os arquivos usam ponto e vírgula (;), usamos read_csv2
+nascidos <- read_csv2("C:/Users/prhel/Downloads/sinasc_cnv_nvpr212311189_6_17_63.csv")
+obitos <- read_csv2("C:/Users/prhel/Downloads/sim_cnv_obt10pr212729189_6_17_63.csv")
+
+# Renomeando a primeira coluna para evitar problemas com o "ç" que às vezes buga
+colnames(nascidos)[1] <- "raca_cor"
+colnames(obitos)[1] <- "raca_cor"
+
+# 2. Reorganizando os Nascidos (Transformando as colunas 2022 e 2023 em linhas)
+nascidos_long <- nascidos |>
+  select(raca_cor, `2022`, `2023`) |>
+  pivot_longer(cols = c(`2022`, `2023`), names_to = "ano", values_to = "total_nasc")
+
+# 3. Reorganizando os Óbitos 
+obitos_long <- obitos |>
+  select(raca_cor, `2022`, `2023`) |>
+  pivot_longer(cols = c(`2022`, `2023`), names_to = "ano", values_to = "total_obitos")
+
+# 4. Juntando as tabelas e calculando a probabilidade
+prob_morte_infantil <- nascidos_long |>
+  left_join(obitos_long, by = c("raca_cor", "ano")) |>
+  mutate(
+    # Calcula a probabilidade dividindo os obitos pelos nascidos
+    prob_morte_1 = total_obitos / total_nasc
+  ) |>
+  # Filtrando fora a linha do "Total" e os "Ignorados" para não poluir o gráfico
+  filter(raca_cor != "Total", raca_cor != "Ignorado")
+
+# 5. Gerando o Gráfico
+ggplot(prob_morte_infantil, aes(x = ano, y = prob_morte_1, 
+                                group = raca_cor, color = raca_cor)) +
+  geom_line(linewidth = 0.5) +
+  geom_point(size = 2.5) +
+  geom_text(aes(label = sprintf("%.2f%%", prob_morte_1 * 100)),
+            vjust = -1.2, size = 2.7, show.legend = FALSE) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 0.1),
+                     expand = expansion(mult = c(0.1, 0.2))) +
+  labs(
+    title = "Probabilidade de morrer antes de completar 1 ano por Raça/Cor",
+    subtitle = "Anos de 2022 e 2023",
+    x = "Ano",
+    y = "Probabilidade de Morte (q0)",
+    color = "Raça/Cor",
+    caption = "Fonte: SINASC e SIM/DATASUS."
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+
+library(scales) # Essencial para o percent_format
+
+# 1. PASSO CRUCIAL: Filtrar para apenas UMA raça (ex: Branca)
+# Isso isola a série e permite o eixo curto
+g_q1d_filtrado <- prob_morte_infantil |>
+  filter(racacor_nome == "Branca")
+
+# 2. Criando o gráfico no modelo (código adaptado do ggplot da sua amiga)
+# g_q1d_modelo <- ggplot(g_q1d_filtrado, aes(x = as.factor(ano_nasc), y = prob_morte_1, 
+#                                         group = 1)) + # group=1 porque é só uma linha
+geom_line(color = "#2c7fb8", linewidth = 0.5) + # Usando a cor azul de exemplo
+  geom_point(color = "#2c7fb8", size = 2.5) +
+  # ADICIONA OS RÓTULOS DE DADOS (as porcentagens acima dos pontos)
+  # Multiplica por 100 e formata para 2 casas decimais
+  geom_text(aes(label = sprintf("%.2f%%", prob_morte_1 * 100)),
+            vjust = -1.2, size = 3, color = "#2c7fb8", fontface = "bold") +
+  # FORMATA O EIXO Y (Porcentagem com 1 casa decimal e RESTRITO)
+  scale_y_continuous(labels = scales::percent_format(accuracy = 0.1),
+                     limits = c(0, 0.04), # Restringe de 0% a 4% (0.04)
+                     expand = expansion(mult = c(0.1, 0.2))) + # Espaço extra para o texto não cortar
+  scale_x_discrete(expand = expansion(mult = c(0.1, 0.1))) + # Espaço extra nas laterais
+  labs(
+    title = "Probabilidade de morrer antes de completar 1 ano",
+    subtitle = "Raça/Cor Branca — Paraná — Anos de 2022 e 2023",
+    x = "Ano",
+    y = "Probabilidade de Morte (q0)",
+    caption = "Fonte: SINASC e SIM/DATASUS. Dados agregados."
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13),
+    plot.subtitle = element_text(size = 11, face = "italic"),
+    panel.grid.minor = element_blank(),
+    axis.title.x = element_blank() # Remove o título do eixo x (Ano) para ficar igual
+  )
+
+print(g_q1d_modelo)
+
+g_q1d_filtrado <- prob_morte_infantil |>
+  filter(raca_cor == "Branca")
+
+# 2. Criando o gráfico no modelo
+# Correção: descomentado e usando a variável "ano" no eixo x
+g_q1d_modelo <- ggplot(g_q1d_filtrado, aes(x = ano, y = prob_morte_1, group = 1)) +
+  geom_line(color = "#2c7fb8", linewidth = 0.5) +
+  geom_point(color = "#2c7fb8", size = 2.5) +
+  # ADICIONA OS RÓTULOS DE DADOS (as percentagens acima dos pontos)
+  geom_text(aes(label = sprintf("%.2f%%", prob_morte_1 * 100)),
+            vjust = -1.5, size = 3.5, color = "#2c7fb8", fontface = "bold") +
+  # FORMATA O EIXO Y (Percentagem com 1 casa decimal e RESTRITO)
+  scale_y_continuous(labels = scales::percent_format(accuracy = 0.1),
+                     limits = c(0, 0.04), # Restringe de 0% a 4% (0.04)
+                     expand = expansion(mult = c(0.1, 0.2))) + 
+  scale_x_discrete(expand = expansion(mult = c(0.1, 0.1))) + 
+  labs(
+    title = "Probabilidade de morrer antes de completar 1 ano",
+    subtitle = "Raça/Cor Branca — Paraná — Anos de 2022 e 2023",
+    x = "Ano",
+    y = "Probabilidade de Morte (q0)",
+    caption = "Fonte: SINASC e SIM/DATASUS. Dados agregados."
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", size = 13),
+    plot.subtitle = element_text(size = 11, face = "italic"),
+    panel.grid.minor = element_blank(),
+    axis.title.x = element_blank()
+  )
+
+# Imprimir o gráfico gerado
+print(g_q1d_modelo)
