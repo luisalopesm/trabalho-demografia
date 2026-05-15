@@ -1,6 +1,6 @@
 # ============================================
 # b) MORTALIDADE INFANTIL E PERINATAL
-# Paraná
+# Curitiba - PR
 # ============================================
 
 library(tidyverse)
@@ -26,10 +26,11 @@ sim_fetal <- bind_rows(lista_fetal)
 
 sim_fetal <- process_sim(sim_fetal)
 
+# FILTRAR CURITIBA
 sim_fetal <- sim_fetal %>%
   
   filter(
-    munResUf == "Paraná"
+    munResNome == "Curitiba"
   )
 
 # média anual
@@ -52,7 +53,6 @@ media_obitos_fetais <- sim_fetal %>%
   
   pull(media)
 
-
 # ============================================
 # 1. BAIXAR ÓBITOS SIM
 # ============================================
@@ -73,6 +73,13 @@ lista_sim <- lapply(anos, function(a){
 sim_pr <- bind_rows(lista_sim)
 
 sim_pr <- process_sim(sim_pr)
+
+# FILTRAR CURITIBA
+sim_pr <- sim_pr %>%
+  
+  filter(
+    munResNome == "Curitiba"
+  )
 
 # ============================================
 # 2. PREPARAR VARIÁVEIS
@@ -189,7 +196,78 @@ sinasc_2023 <- fetch_datasus(
 
 sinasc_2023 <- process_sinasc(sinasc_2023)
 
+# FILTRAR CURITIBA
+sinasc_2023 <- sinasc_2023 %>%
+  
+  filter(
+    munResNome == "Curitiba"
+  )
+
 nascidos_vivos <- nrow(sinasc_2023)
+
+
+# ============================================
+# TMI POR SEXO
+# ============================================
+
+# ----------------------------
+# ÓBITOS INFANTIS POR SEXO
+# ----------------------------
+
+obitos_sexo <- obitos_infantis %>%
+  
+  filter(!is.na(SEXO)) %>%
+  
+  group_by(ano, SEXO) %>%
+  
+  summarise(
+    obitos_infantis = n(),
+    .groups = "drop"
+  )
+
+# média de óbitos 2022-2024
+media_obitos_sexo <- obitos_sexo %>%
+  
+  group_by(SEXO) %>%
+  
+  summarise(
+    media_obitos = mean(obitos_infantis),
+    .groups = "drop"
+  )
+
+# ----------------------------
+# NASCIDOS VIVOS POR SEXO
+# ----------------------------
+
+nascidos_sexo <- sinasc_2023 %>%
+  
+  filter(!is.na(SEXO)) %>%
+  
+  group_by(SEXO) %>%
+  
+  summarise(
+    nascidos_vivos = n(),
+    .groups = "drop"
+  )
+
+# ----------------------------
+# CÁLCULO DA TMI
+# ----------------------------
+
+tmi_sexo <- media_obitos_sexo %>%
+  
+  left_join(
+    nascidos_sexo,
+    by = "SEXO"
+  ) %>%
+  
+  mutate(
+    TMI = round(
+      (media_obitos / nascidos_vivos) * 1000,
+      2
+    )
+  )
+
 
 # ============================================
 # 6. TAXAS DE MORTALIDADE
@@ -224,9 +302,11 @@ tm_posneonatal <- (
 # 7. ÓBITOS FETAIS
 # ============================================
 
-obitos_fetais_ano <- sim_pr %>%
+obitos_fetais_ano <- sim_fetal %>%
   
-  filter(OBITOGRAV == "Sim") %>%
+  mutate(
+    ano = year(ymd(DTOBITO))
+  ) %>%
   
   group_by(ano) %>%
   
@@ -241,12 +321,13 @@ media_obitos_fetais <-
 # ============================================
 # 8. TAXA DE MORTALIDADE PERINATAL
 # ============================================
+
 # Óbitos fetais 2023
-
-
 obitos_fetais_2023 <- sim_fetal %>%
   
-  mutate(ano = year(ymd(DTOBITO))) %>%
+  mutate(
+    ano = year(ymd(DTOBITO))
+  ) %>%
   
   filter(ano == 2023) %>%
   
@@ -266,9 +347,20 @@ obitos_neonatal_precoce_2023 <- obitos_infantis %>%
   
   pull(n)
 
-# TMP correta
+# Taxa de mortalidade perinatal
 tx_mort_perinatal <- (
   (obitos_fetais_2023 + obitos_neonatal_precoce_2023)
   /
     (nascidos_vivos + obitos_fetais_2023)
 ) * 1000
+
+# ============================================
+# 9. RESULTADOS
+# ============================================
+
+tmi
+tm_neonatal
+tm_neonatal_precoce
+tm_neonatal_tardia
+tm_posneonatal
+tx_mort_perinatal
