@@ -3,6 +3,8 @@ title: "Trabalho 1 - Demografia"
 format: pdf
 editor: visual
 author: "Camila Mesquita, Laíse Ribeiro, Luísa Lopes, Nícolas Baldez  - Curitiba (PR)"
+header-includes:
+  - \usepackage{multirow}
 ---
 
 ```{r setup}
@@ -55,7 +57,7 @@ a\) Com base nos dados do SINASC, para cada um dos anos seguintes: 2010, 2019, 2
 
 -   Taxa Líquida de Reprodução (é necessária a informação da função L da Tábua de Vida)
 
-**Resposta:**
+**Resposta:** Para resolver essa questão, foram utilizadas seis tabelas diferentes, sendo duas vindas do Ripsa ("População residente por Ano segundo Faixa Etária 2, Município: 410690 CURITIBA, Período: 2010, 2019, 2021-2022, 2024"; "População residente por Ano segundo Faixa Etária 2, Município: 410690 CURITIBA, Sexo: Feminino, Período: 2010, 2019, 2021-2022, 2024"), duas vindas do DataSus - Tabnet ("Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Capital: 410690 Curitiba, Período: 2010, 2019, 2021-2022, 2024"; "Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Município: 410690 CURITIBA, Sexo: Fem, Período: 2010, 2019, 2021-2022, 2024"), e duas vindas da Projeção de População do IBGE ("População por sexo e grupos quiquenais", "Tábuas de Mortalidade")
 
 $TBN = \frac{N}{P} \times 1000$
 
@@ -65,8 +67,18 @@ $N$: Número total de nascidos vivos ocorridos no período
 
 $P$: População média do período
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TBN.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa Bruta de Natalidade}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TBN & 14,019 & 11,598 & 10,090 & 10,017 & 9,224 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
 $TFG = \frac{N}{P_f} \times 1000$
@@ -77,30 +89,59 @@ $N$: Número total de nascidos vivos ocorridos no período
 
 $P_f$: População feminina média entre 15 e 49 anos
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TFG.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas de Fecundidade Geral}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TFG & 47,284 & 42,157 & 37,169 & 37,128 & 34,726 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-$nfx = \frac{Nx}{P_fx}$ e $TEF = \frac{Nx}{Pfx} \times 1000$
+$nfx = \frac{Nx}{P_fx}$
 
-$nfx$: Nascidos vivos por grupo etário da mãe
+*obs:* Geralmente, em tabelas, a $nfx$ aparece multiplicada por 1000. Entretanto, para fazer os demais cálculos e gráficos, ela aparece da forma que é calculada - com casas decimais.
 
-$TEF$: Taxas Específicas de Fecundidade
+$nfx$: Taxas Específicas de Fecundidade
 
-$Nx$: Nascidos vivos de mãe entre as idades x e x+n
+$Nx$: Nascidos vivos de mãe entre as idades $x$ e $x+n$
 
-$P_fx$: População média feminina entre as idades x e x+n
+$P_fx$: População média feminina entre as idades $x$ e $x+n$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TEF_nfx.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas específicas de fecundidade}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Taxa & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{nfx} 
+& 15-19 & 48,531 & 26,508 & 20,202 & 18,128 & 15,464 \\ 
+& 20-24 & 70,566 & 59,563 & 52,531 & 52,120 & 46,246 \\ 
+& 25-29 & 73,706 & 67,823 & 61,895 & 63,043 & 59,996 \\ 
+& 30-34 & 70,676 & 71,983 & 64,595 & 64,544 & 62,665 \\ 
+& 35-39 & 40,456 & 49,945 & 44,928 & 45,492 & 44,647 \\ 
+& 40-44 & 9,201 & 11,765 & 11,256 & 12,442 & 11,907 \\ 
+& 45-49 & 0,615 & 0,788 & 0,814 & 0,849 & 0,860 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-Gráficos de $TFG$ e $nfx$:
+Gráficos de $nfx$ e $TFG$:
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TFG_grafico.png")
-knitr::include_graphics("quest2/nfx_grafico.png")
-```
+::: {style="text-align: center;"}
+![](nfx_curitiba.png){width=65%}
+:::
+::: {style="text-align: center;"}
+![](tfg_curitiba.png){width=65%}
+:::
 
 $TFT = 5\sum_{i=1}^{7} f_i$
 
@@ -108,20 +149,49 @@ $TFT$: Taxa de Fecundidade Total
 
 $f_i$: grupos quinquenais de $nfx$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TFT.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa de Fecundidade Total}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TFT & 1,569 & 1,442 & 1,281 & 1,283 & 1,209 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-$f^f_x = \frac{N_f}{P_fx} \times 1000$
+$f^f_x = \frac{N_f}{P_fx}$
+
+*obs:* Assim como a $nfx$, a $f^f_x$ é apresentada, em tabelas, sendo multiplicada por 1000, mas para os demais cálculos, ela aparece da forma como é calculada.
 
 $f^f_x$: Taxas Específicas de Fecundidade feminina
 
-$N_f$: Nascidos vivos femininos de mães entre as idades x e x+n
+$N_f$: Nascidos vivos femininos de mães entre as idades $x$ e $x+n$
 
-$P_fx$: População média feminina entre as idades x e x+n
+$P_fx$: População média feminina entre as idades $x$ e $x+n$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TEF_f.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas Específicas de Fecundidade Feminina}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Taxa & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$f^f_x$}
+& 15-19 & 23,510 & 13,174 & 9,925 & 8,987 & 7,271 \\ 
+& 20-24 & 34,843 & 29,474 & 26,095 & 25,850 & 23,169 \\ 
+& 25-29 & 35,973 & 33,314 & 30,334 & 32,140 & 29,285 \\ 
+& 30-34 & 34,759 & 34,901 & 30,858 & 32,168 & 31,022 \\ 
+& 35-39 & 19,628 & 24,306 & 22,196 & 22,087 & 21,541 \\ 
+& 40-44 & 4,572 & 5,762 & 5,583 & 6,036 & 5,486 \\ 
+& 45-49 & 0,337 & 0,321 & 0,392 & 0,503 & 0,388 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
 $TBR = 5\sum_{i=1}^{7} f^f_i$
@@ -130,8 +200,18 @@ $TBR$: Taxa Bruta de Reprodução
 
 $f^f_i$: grupos quinquenais de $f^f_x$
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TBR.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa Bruta de Reprodução}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TBR & 0,766 & 0,705 & 0,625 & 0,636 & 0,589 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
 $TLR = \sum_{i=1}^{7} f^f_i \times\frac{L^f_i}{l_0}$
@@ -142,68 +222,169 @@ $f^f_i$: grupos quinquenais de $f^f_x$
 
 $L^f_i$: Função da Tábua de vida
 
-$l_0$: raiz da Tábua de vida, representa o número de nascimentos
+$l_0$: raiz da Tábua de vida, representa o número de nascimentos (nesse caso, 100.000)
 
-```{r, echo=FALSE, out.width="110%", fig.align='center'}
-knitr::include_graphics("quest2/TLR.png")
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Tábua de vida (Paraná)}
+\begin{tabular}{|l|ccccc|}
+\hline
+Tábua de vida & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$nLx$}
+& 491.654 & 493.104 & 493.391 & 493.096 & 493.215 \\ 
+& 490.196 & 491.960 & 491.835 & 491.743 & 492.064 \\ 
+& 488.543 & 490.655 & 489.629 & 490.009 & 490.597 \\ 
+& 486.526 & 488.963 & 486.551 & 487.995 & 488.688 \\ 
+& 483.837 & 486.592 & 482.255 & 485.315 & 486.260 \\ 
+& 480.019 & 483.348 & 476.003 & 481.629 & 482.855 \\ 
+& 474.342 & 478.411 & 466.817 & 476.377 & 477.875 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxas específicas de fecundidade feminina (Paraná)}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Taxa & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$f^f_x$}
+& 15-19 & 28,931 & 20,820 & 17,922 & 16,575 & 14,155 \\ 
+& 20-24 & 41,919 & 39,383 & 37,452 & 36,905 & 33,476 \\ 
+& 25-29 & 40,536 & 42,049 & 39,376 & 40,483 & 38,909 \\ 
+& 30-34 & 31,667 & 37,432 & 34,712 & 35,025 & 33,067 \\ 
+& 35-39 & 16,365 & 21,825 & 20,369 & 20,801 & 20,275 \\ 
+& 40-44 & 4,002 & 5,487 & 5,525 & 5,569 & 5,424 \\ 
+& 45-49 & 0,298 & 0,308 & 0,298 & 0,325 & 0,363 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+```{=latex}
+\begin{table}[H]
+\centering
+\caption{Multiplicação (Paraná)}
+\begin{tabular}{|l|l|ccccc|}
+\hline
+Multiplicação & Idade & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+\multirow{7}{*}{$f^f_i \cdot \frac{L^f_i}{l_0}$}
+& 15-19 & 0,142 & 0,103 & 0,088 & 0,082 & 0,070 \\ 
+& 20-24 & 0,205 & 0,194 & 0,184 & 0,181 & 0,165 \\ 
+& 25-29 & 0,198 & 0,206 & 0,193 & 0,198 & 0,191 \\ 
+& 30-34 & 0,154 & 0,183 & 0,169 & 0,171 & 0,162 \\ 
+& 35-39 & 0,079 & 0,106 & 0,098 & 0,101 & 0,099 \\ 
+& 40-44 & 0,019 & 0,027 & 0,026 & 0,027 & 0,026 \\ 
+& 45-49 & 0,001 & 0,001 & 0,001 & 0,002 & 0,002 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Taxa Líquida de Reprodução (Paraná)}
+\begin{tabular}{|l|ccccc|}
+\hline
+Taxa & 2010 & 2019 & 2021 & 2022 & 2024 \\ 
+\hline
+TLR & 0,800 & 0,820 & 0,760 & 0,762 & 0,714 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+
+Nos anos analisados (2010, 2019, 2021, 2022 e 2024), Curitiba apresentou redução da natalidade e da fecundidade. A TBN caiu de 14,019 para 9,224 nascimentos por mil habitantes, enquanto a TFG reduziu de 47,284 para 34,726, indicando diminuição do número de nascimentos e do número médio de filhos por mulher. Além disso, as Taxas Específicas de Fecundidade mostram um deslocamento da fecundidade para idades mais elevadas. Em 2010, o pico ocorreu entre 25–29 anos, indicando fecundidade tardia, mas, a partir de 2019, passou para 30–34 anos, caracterizando fecundidade muito tardia.
+
+A TFT caiu de 1,569 para 1,209 filhos por mulher, permanecendo abaixo do nível de reposição populacional (aproximadamente 2,1 filhos por mulher) em todos os anos analisados. Isso indica que a população não está se reproduzindo em nível suficiente para substituir as gerações futuras. O mesmo ocorre com a TBR e a TLR, que permaneceram abaixo de 1 durante todo o período. Como a TLR possui nível de reposição igual a 1, os valores observados indicam que cada geração de mulheres não está conseguindo substituir integralmente a geração anterior. Para a TLR, foram utilizados dados do Paraná como aproximação para Curitiba.
+
+De forma geral, os resultados mostram que as mulheres estão tendo menos filhos e em idades mais avançadas. Além disso, como os níveis de fecundidade e reprodução ficaram abaixo do nível de reposição, a tendência é de envelhecimento da população e diminuição do crescimento populacional ao longo do tempo.
+
 
 b\) Obtenha todos os indicadores de 2022, considerando a população recenseada nesse ano.
 
-**Resposta:**
+**Resposta:** Já para essa questão, foram utilizadas quatro tabelas diferentes, sendo uma vinda do Censo de 2022 do IBGE ("População por idade e sexo | Resultados do universo (Paraná - Curitiba)"), duas vindas do DataSus - Tabnet ("Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Município: 410690 CURITIBA, Período: 2022"; "Nascim p/resid.mãe por Ano do nascimento segundo Idade da mãe, Município: 410690 CURITIBA, Sexo: Fem, Período: 2022"), e uma vindas da Projeção de População do IBGE ("Tábuas de Mortalidade")
 
-$TBN$:
+```{=latex}
+\begin{table}[H]
+\centering
+\caption{Indicadores de fecundidade e reprodução — 2022}
+\begin{tabular}{|l|l|c|}
+\hline
+Taxa & Idade & 2022 \\ 
+\hline
+TBN &  & 10,371 \\ 
+\hline
+TFG &  & 38,449 \\ 
+\hline
 
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TBN2022.png")
+\multirow{7}{*}{nfx}
+& 15-19 & 20,071 \\ 
+& 20-24 & 54,829 \\ 
+& 25-29 & 65,563 \\ 
+& 30-34 & 66,066 \\ 
+& 35-39 & 46,248 \\ 
+& 40-44 & 12,539 \\ 
+& 45-49 & 0,869 \\ 
+\hline
+
+TFT &  & 1,331 \\ 
+\hline
+
+\multirow{7}{*}{$f^f_x$}
+& 15-19 & 9,950 \\ 
+& 20-24 & 27,194 \\ 
+& 25-29 & 33,425 \\ 
+& 30-34 & 32,927 \\ 
+& 35-39 & 22,454 \\ 
+& 40-44 & 6,083 \\ 
+& 45-49 & 0,516 \\ 
+\hline
+
+TBR &  & 0,663 \\ 
+\hline
+
+\multirow{7}{*}{$f^f_i \cdot \frac{L^f_i}{l_0}$}
+& 15-19 & 0,049 \\ 
+& 20-24 & 0,134 \\ 
+& 25-29 & 0,164 \\ 
+& 30-34 & 0,161 \\ 
+& 35-39 & 0,109 \\ 
+& 40-44 & 0,029 \\ 
+& 45-49 & 0,002 \\ 
+\hline
+
+TLR &  & 0,648 \\ 
+\hline
+\end{tabular}
+\end{table}
 ```
 
-$TFG$:
+Gráficos de $nfx$ e $TFG$:
 
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TFG2022.png")
-```
+::: {style="text-align: center;"}
+![](nfx_curitiba2022.png){width=65%}
+:::
+::: {style="text-align: center;"}
+![](tfg_curitiba2022.png){width=40%}
+:::
 
-$nfx$ e $TEF$:
+Com base nos dados do Censo 2022, observa-se que Curitiba (considerando o recorte apresentado) mantém a tendência de queda na natalidade e na fecundidade. A Taxa de Fecundidade Geral (TFG) ficou em 38,5, o que reforça a diminuição do número de nascimentos em relação ao total de mulheres em idade fértil. As Taxas Específicas de Fecundidade mostram que o comportamento reprodutivo está consolidado em idades mais avançadas. O pico de fecundidade ocorre agora de forma dividida entre as faixas de 25–29 e 30–34 anos (ambas com 0,066), o que caracteriza uma fecundidade tardia/ muito tardia.
 
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TEF_nfx2022.png")
-```
-
-Gráficos de $TFG$ e $nfx$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TFG_grafico2022.png")
-knitr::include_graphics("quest2/nfx_grafico2022.png")
-```
-
-$TFT$:
-
-```{r, echo=FALSE, out.width="35%", fig.align='center'}
-knitr::include_graphics("quest2/TFT2022.png")
-```
-
-$f^f_x$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/ffx2022.png")
-```
-
-$TBR$:
-
-```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("quest2/TBR2022.png")
-```
-
-$TLR$:
-
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-knitr::include_graphics("quest2/TLR2022.png")
-```
+A TFT calculada a partir desses dados é de aproximadamente 1,33 filhos por mulher, permanecendo bem abaixo do nível de reposição populacional, que seria de 2,1 filhos (ou TLR = 1). Isso indica que a população não está conseguindo se reproduzir em nível suficiente para substituir as gerações atuais pelas futuras. De forma geral, os resultados do Censo confirmam que as mulheres estão tendo menos filhos e optando pela maternidade cada vez mais tarde. Como os níveis de fecundidade e reposição estão baixos, a tendência para o futuro continua sendo de envelhecimento populacional e redução no ritmo de crescimento da cidade.
 
 c\) Comente esses resultados (inclusive os gráficos das nfx), fazendo referência a artigos já publicados sobre o assunto.
 
-**Resposta:** As taxas específicas de fecundidade (nfx) aumentam gradualmente até o grupo de 20 a 29 anos e depois caem bruscamente a partir do ponto máximo de cada curva. Esse padrão se mantém em todos os anos analisados (2010, 2019, 2021, 2022 e 2024 - no caso da questão 2a), indicando que a fecundidade está concentrada nas idades adultas mais jovens, com poucos nascimentos no início e no final da vida reprodutiva. As demais taxas apresentam a mesma queda que a nfx. As taxas líquidas de reprodução, tanto na 2a quanto na 2b, estão abaixo de 1, ou seja, abaixo do nível de reposição, o que indica que ao longo do tempo, a população decresce.
+**Resposta:** Os resultados obtidos para Curitiba mostram, de forma geral, uma queda consistente da natalidade e da fecundidade ao longo do período analisado, o que é evidenciado pela redução da TBN, TFG e TFT. Além disso, os níveis de fecundidade e reprodução permanecem abaixo do nível de reposição em todos os anos, indicando que a geração atual não está sendo substituída integralmente pela seguinte.
+
+Nos gráficos de nfx, observa-se também uma mudança importante no padrão etário da fecundidade. Em 2010, o pico estava concentrado em 25–29 anos, enquanto nos anos mais recentes há um deslocamento para 30–34 anos, além de uma queda mais acentuada nas idades mais jovens. Isso indica um adiamento da maternidade e uma menor concentração de nascimentos em idades precoces.
+
+Esses resultados estão de acordo com o que é apontado em estudos e dados do IBGE, que mostram a redução contínua da fecundidade no Brasil e o aumento da idade média ao ter filhos. A literatura também destaca que esse padrão está relacionado a mudanças no comportamento reprodutivo ao longo do tempo. De forma geral, os resultados indicam não só redução do nível de fecundidade, mas também mudança no calendário reprodutivo, com menos filhos e em idades mais tardias.
+
 
 d\) Para os dados do SINASC para 2024, analise a associação entre (apresente ao menos uma medida de associação):
 
@@ -222,9 +403,9 @@ knitr::include_graphics("quest2/TCTF1.png")
 knitr::include_graphics("quest2/grafico1.png")
 ```
 
-V de Cramer Interpretação \< 0,10 Associação muito fraca 0,10 - 0,30 Associação fraca 0,30 - 0,50 Associação moderada 0,50 Associação forte Resumo para sua resposta: Análise Medida Valor Interpretação Idade vs. Escolaridade V de Cramer = 0,155 Entre 0,10-0,30 Associação fraca Parto vs. Escolaridade RP = 1,67 1 Escolaridade alta é fator de risco para cesárea (67% mais chance) Parto vs. Escolaridade RP = 0,60 \< 1 Escolaridade alta é fator de proteção contra cesárea (40% menos chance)
-
-Análise (v de cramer = 0.1932063)
+A análise gráfica dos 16.872 registros indica uma clara progressão educacional acompanhando o avanço da idade. Mães mais jovens (até 19 anos) concentram-se na faixa de 8 a 11 anos de estudo. Já a partir dos 25 anos, há um rápido crescimento na proporção de mães com "12 anos e mais" de escolaridade, que passa a ser a categoria predominante após os 30 anos.
+Para quantificar essa relação, utilizou-se o V de Cramer, que resultou em 0,193. Esse valor indica uma associação estatística real, porém fraca.
+Essa aparente divergência entre a forte tendência visual do gráfico e o resultado baixo do teste ocorre por dois motivos centrais: a grande dispersão dos dados nas faixas etárias intermediárias (20 a 29 anos) e o fato de que o V de Cramer trata as categorias como nominais, ignorando a progressão natural de tempo e instrução que observamos visualmente.
 
 Tabela e Gráfico da Escolaridade pelo Tipo de parto da mãe
 
@@ -233,7 +414,9 @@ knitr::include_graphics("quest2/TCTF2.png")
 knitr::include_graphics("quest2/grafico2.png")
 ```
 
-Análise (v de cramer = 0.1337143/ associação fraca (0.10-0.15))
+A análise da tabela de contingência revela uma clara inversão no tipo de parto predominante conforme o nível de instrução aumenta. Entre mulheres com menor escolaridade (até 7 anos de estudo), o parto vaginal é o mais frequente. Na faixa de 8 a 11 anos, as modalidades se equilibram, com leve vantagem para a cesárea. Já entre as mães com "12 anos e mais", o parto cesáreo torna-se amplamente majoritário, registrando mais que o dobro de ocorrências em relação ao parto vaginal (5.518 cesáreas contra 2.485 vaginais).
+Para quantificar a força dessa relação, o V de Cramer calculado foi de 0,134. Esse valor aponta para uma associação estatisticamente existente, porém fraca.
+O resultado baixo na medida de associação, apesar da mudança nítida na preferência de parto, ocorre principalmente porque a quase totalidade da amostra (cerca de 95%) está concentrada em apenas duas categorias de escolaridade (8 a 11 anos e 12 anos e mais), gerando um desbalanceamento na tabela que diminui a força da associação capturada pelo teste.
 
 ### **Questão 3: Mortalidade**
 
