@@ -36,6 +36,26 @@ c\) Considerando o mesmo pressuposto, calcule a probabilidade de sobreviver ao p
 d\) Para os anos de 2022 e 2023, calcule a probabilidade de morrer antes de completar o primeiro aniversário, segundo raça/cor (Desafio)
 
 **Resposta:**
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Probabilidade de morrer por raça/cor}
+\begin{tabular}{|l|l|ccc|}
+\hline
+Ano & Grupo raça & Nascidos & Óbitos & Prob. morrer \\ 
+\hline
+2022 & Branca & 15291 & 130 & 0,0085 \\ 
+2022 & Negra & 2784 & 21 & 0,0075 \\ 
+2022 & Outros/Ignorados & 321 & 7 & 0,0218 \\ 
+2023 & Branca & 13685 & 125 & 0,0091 \\ 
+2023 & Negra & 3796 & 13 & 0,0034 \\ 
+2023 & Outros/Ignorados & 498 & 4 & 0,0080 \\ 
+\hline
+\end{tabular}
+\end{table}
+```
+
+
 
 e\) Comente os valores encontrados. Não se esquecer da qualidade da informação trabalhada.
 
