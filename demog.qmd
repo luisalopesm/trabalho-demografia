@@ -616,3 +616,14 @@ knitr::include_graphics("questao-3/tabela_tabua_vida_feminino_2024.png")
 ```{r, echo=FALSE, fig.align="center"}
 knitr::include_graphics("questao-3/tabela_tabua_vida_masculino_2024.png")
 ```
+
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_lx_sobrevivencia.png")
+```
+
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("questao-3/grafico_nqx_mortalidade.png")
+```
+
+
